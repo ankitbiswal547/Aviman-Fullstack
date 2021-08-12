@@ -969,6 +969,10 @@ footer {
     #second .original-price,#second .offer-price,#second .percentage-off {
         font-size: 0.8em;
     }
+    .free-shipping-msg {
+        align-items: baseline;
+        text-align: left;
+    }
 }
 
 
