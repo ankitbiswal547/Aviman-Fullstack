@@ -944,6 +944,7 @@ label {
     .email-verification {
         align-items: baseline;
         flex-direction: column;
+        width: 95%;
     }
 
     .email-verification a {
