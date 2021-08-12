@@ -1,0 +1,10 @@
+<% if(currUser){ %>
+    <a class="show-on-scroll-cart" href="/cart/<%= currUser._id %>">
+        <div class="floating-cart">
+            <i class="fas fa-cart-plus"></i>
+            <span class="cart-pdt-number">
+                <%= currUser.cart.length %>
+            </span>
+        </div>
+    </a>
+    <% } %>

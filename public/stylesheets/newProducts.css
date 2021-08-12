@@ -1,0 +1,162 @@
+#newproducts {
+    padding: 4rem 0;
+}
+
+.latest-title {
+    text-align: center;
+    font-size: 40px;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    color: #e85a4f;
+}
+
+.newproducts-container {
+    width: 76%;
+    margin: 0 auto;
+}
+
+.new-product {
+    width: 47%;
+    margin-top: 2rem;
+    color: #8e8d8a;
+    cursor: pointer;
+}
+
+.new-product:hover .image-part img{
+    opacity: 0.75;
+}
+
+.new-product:hover .product-desc h3 {
+    color: #e98074;
+}
+
+.newproducts-area {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.new-product .image-part img {
+    width: 100%;
+    max-height: 500px;
+}
+
+
+/* btn class */
+
+.btn-area {
+    display: grid;
+    place-items: center;
+    margin-top: 2rem;
+}
+.btn {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    font-size: 1.2em;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    color: #e85a4f;
+}
+
+/* .btn:hover {
+    background-color: #;
+    color: white;
+} */
+
+.btn:focus {
+    outline: none;
+}
+
+@media screen and (max-width:1025px) {
+    #newproducts{
+        padding: 3rem 0;
+    }
+    .product-desc {
+        padding: 0.4em 0.1em;
+    }
+    .latest-title {
+        font-size: 2.3em;
+    }
+    .newproducts-container {
+        width: 90%;
+    }
+    .new-product {
+        width: 48%;
+    }
+} 
+
+@media screen and (max-width:769px) {
+    nav {
+        padding: 1rem 4rem;
+    }
+    #newproducts{
+        padding: 2rem 0;
+    }
+
+    .new-product {
+        width: 48.5%;
+    }
+    .new-product .image-part img {
+        height: 360px;
+    }
+
+    .btn {
+        padding: 0.5em;
+    }
+    .new-product .original-price,.new-product .percentage-off {
+        font-size: 1em;
+    }
+    .new-product .offer-price {
+        font-size: 1.1em;
+    }
+}
+@media screen and (max-width:541px) {
+
+    nav {
+        padding: 1rem 2rem;
+    }
+
+    .new-product .image-part img{
+        height: 250px;
+    }
+    .product-desc h3 {
+        font-size: 1em;
+    }
+
+    .product-pricing {
+        font-size: 0.8em;
+    }
+} 
+
+@media screen and (max-width:426px) {
+
+    .new-product .image-part img{
+        height: 185.726px;
+    }
+    .product-desc h3 {
+        font-size: 1em;
+    }
+    #newproducts .product-pricing {
+        font-size: 0.65em;
+    }
+
+}
+
+@media screen and (max-width:376px) {
+    .newproducts-container {
+        width: 95%;
+    }
+
+    .new-product {
+        width: 100%;
+    }
+
+    .new-product .image-part img {
+        height: 305px;
+    }
+}

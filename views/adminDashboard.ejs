@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/adminDashboard/adminDashboard.css">
+    <!-- <link rel="stylesheet" href="./styles.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" />
+</head>
+
+<body>
+
+    <div class="side-nav">
+        <!-- <i id="sidenavbtn" class="fas fa-chevron-right arrow-right"></i> -->
+        <i id="sidenavbtn" class="fas fa-bars"></i>
+        <div class="logo"><a href="/">Aviman</a></div>
+        <ul>
+            <a id="homeLink" class="nav-links" href="#home">
+                <li>Home</li>
+            </a>
+            <a id="newPdtNavlink" class="nav-links" href="#addNewProduct">
+                <li>New Product</li>
+            </a>
+            <!-- <a id="editPdtNavlink" class="nav-links" href="#editProduct">
+                <li>Edit Product</li>
+            </a> -->
+            <a id="allPdtsNavlink" class="nav-links" href="#allProducts">
+                <li>All Products</li>
+            </a>
+            <a class="nav-links" href="/logout">
+                <li>Logout</li>
+            </a>
+        </ul>
+    </div>
+
+    <div class="admin-functionalities">
+
+        <div id="home">
+            <div class="stat">
+                <div class="stat-number">
+                    <%= totalUsers %>
+                </div>
+                <div class="stat-title">Total Users</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">
+                    <%= totalProducts %>
+                </div>
+                <div class="stat-title">Total Products</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-number">
+                    <%= totalSales %>
+                </div>
+                <div class="stat-title">
+                    Sales Completed
+                </div>
+            </div>
+
+        </div>
+
+        <div id="allProducts">
+            <h2 class="all-pdts-heading">All Products</h2>
+
+            <div class="fire-sale-sec">
+                <% if(!onSale){ %>
+                    <form class="fire-sale-form" action="/products/fireSaleActivation" method="POST">
+                        <input class="fire-sale-input" type="number" name="salePercentage" id=""
+                            placeholder="Percentage Off" min="0" step="1" max="100">
+                        <button class="fire-sale-btn">Activate Fire Sale</button>
+                    </form>
+                    <% }else{ %>
+                        <form class="fire-sale-deactive-form" action="/products/fireSaleDeactivation" method="POST">
+                            <button class="fire-sale-btn-deactive">Deactivate Fire Sale</button>
+                        </form>
+                        <% } %>
+            </div>
+
+            <div class="allproducts-show-container">
+
+
+                <% if(products.length> 0){ %>
+                    <% for(let product of products){ %>
+                        <div class="each-product">
+                            <div class="pdt-image-sec">
+                                <img class="pdt-img" src="<%= product.productImages[0].url %>" alt="">
+                            </div>
+                            <div class="pdt-info-sec">
+                                <h3 class="pdt-name">
+                                    <%= product.productName %>
+                                </h3>
+                                <p>
+                                    <strong>Original Price</strong> - Rs <%= product.price %>
+                                </p>
+                                <p>
+                                    <strong>On Sale</strong> - <%= product.isOnSale %>
+                                </p>
+
+                                <% if(product.isOnSale){ %>
+                                    <p>
+                                        <strong>Discounted Price</strong> - Rs <%= product.discountPrice %>
+                                    </p>
+                                    <% } %>
+
+                                        <p>
+                                            <strong>Sales Completed</strong> - <%= product.salesCompleted %>
+                                        </p>
+                                        <div class="admin-btn-sec">
+                                            <form action="/products/<%= product._id %>/edit" method="GET">
+                                                <button class="admin-btn admin-btn-blue">Edit</button>
+                                            </form>
+                                            <form action="">
+                                                <button class="admin-btn admin-btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                            </div>
+                        </div>
+                        <% } %>
+                            <% } %>
+            </div>
+        </div>
+
+        <!-- <div id="editProduct">
+            <% if(edit) { %>
+                <div class="edit-product-section">
+
+                    <form spellcheck="false" class="edit-pdt-form" action="/products" method="POST"
+                        enctype="multipart/form-data">
+                        <div class="form-control">
+                            <label for="pdtName">Product Name</label>
+                            <input type="text" name="productName" id="pdtName">
+                            <small>Enter a valid Product Name.</small>
+                        </div>
+
+                        <div class="form-control">
+                            <label for="category">Category</label>
+                            <select name="category" id="category">
+                                <option value="spiceBox">Spice Boxes</option>
+                                <option value="cupsAndMugs">Cups & Mugs</option>
+                                <option value="platesAndPlatters">Plates & Platters</option>
+                                <option value="potsAndPlanters">Pots & Planters</option>
+                                <option value="wallHangings">Wall Hangings</option>
+                                <option value="lamps">Lamps</option>
+                            </select>
+                            <small>Category Name is required.</small>
+                        </div>
+
+                        <div class="form-control">
+                            <label for="price">Price (in Rs.)</label>
+                            <input type="number" name="price" id="price">
+                            <small>Price is required and cannot be negative.</small>
+                        </div>
+
+                        <div class="form-control">
+                            <label for="pdtDesc">Description</label>
+                            <textarea type="text" name="description" id="pdtDesc" rows="10"></textarea>
+                            <small>Description is required.</small>
+                        </div>
+
+                        <div class="form-control">
+                            <label for="pdtImages">Images</label>
+                            <input type="file" accept="image/*" multiple name="productImages" id="pdtImages">
+                            <small>Image is required.</small>
+                        </div>
+
+                        <div class="form-control">
+                            <label for="length">Length (in cm)</label>
+                            <input type="number" name="length" id="length">
+                            <small>Length is required and cannot be negative.</small>
+                        </div>
+
+                        <div class="form-control">
+                            <label for="breadth">Breadth (in cm)</label>
+                            <input type="number" name="breadth" id="breadth">
+                            <small>Breadth is required and cannot be negative.</small>
+                        </div>
+
+
+
+                        <div class="form-control">
+                            <label for="height">Height (in cm)</label>
+                            <input type="number" name="height" id="height">
+                            <small>Height is required and cannot be negative.</small>
+                        </div>
+
+                        <div class="form-control">
+                            <label for="color">Color</label>
+                            <input type="text" id="color" name="color">
+                            <small>Color is required.</small>
+                        </div>
+
+
+                        <div class="form-control">
+                            <label for="material">Material</label>
+                            <input type="text" name="material" id="material">
+                            <small>Material is required.</small>
+                        </div>
+
+                        <div class="form-control">
+                            <label for="weight">Weight (in grams)</label>
+                            <input type="number" name="weight" id="weight" min="0">
+                            <small>Weight is required and cannot be negative.</small>
+                        </div>
+
+                        <div class="form-control">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" name="quantity" id="quantity" min="0">
+                            <small>Quantity is required and cannot be negative.</small>
+                        </div>
+
+                        <div class="form-control">
+                            <label for="suitableFor">Suitable For (if any)</label>
+                            <input type="text" name="suitableFor" id="suitableFor">
+                        </div>
+
+
+                        <div class="form-control">
+                            <label for="idealFor">Ideal For (if any)</label>
+                            <input type="text" name="idealFor" id="idealFor">
+                        </div>
+
+                        <div class="form-control">
+                            <label for="careInstructions">Care Instructions (if any)</label>
+                            <input type="text" name="careInstructions" id="careInstructions">
+                        </div>
+
+                        <div class="form-control">
+                            <label for="pdtStory">Product Story (if available)</label>
+                            <input type="text" name="productStory" id="pdtStory">
+                        </div>
+
+                        <div>
+                            <button class="pdt-create-btn">Update</button>
+                        </div>
+                    </form>
+                </div>
+                <% }else{ %>
+                    <div class="nothing-to-edit-msg">No product has been selected to edit</div>
+                    <% } %>
+        </div> -->
+
+        <!-- add new product -->
+        <div id="addNewProduct">
+            <div class="form-section">
+
+
+                <form spellcheck="false" class="new-pdt-form" action="/products" method="POST"
+                    enctype="multipart/form-data">
+                    <div class="form-control">
+                        <label for="pdtName">Product Name</label>
+                        <input type="text" name="productName" id="pdtName">
+                        <small>Enter a valid Product Name.</small>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="pdtCode">Product Code</label>
+                        <input type="text" name="productCode" id="pdtCode">
+                        <small>Enter a valid Product Code.</small>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="category">Category</label>
+                        <!-- <input type="text" name="category" id="category"> -->
+                        <select name="category" id="category">
+                            <option value="pattachitra">Pattachitra</option>
+                            <option value="chandua">Chandua</option>
+                            <option value="sculpture">Sculpture</option>
+                            <option value="woodenIdol">Wooden Idol</option>
+                            <option value="paperMache">Paper Mache</option>
+                            <option value="painting">Painting</option>
+                        </select>
+                        <small>Category Name is required.</small>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="price">Price (in Rs.)</label>
+                        <input type="number" name="price" id="price">
+                        <small>Price is required and cannot be negative.</small>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="pdtDesc">Description</label>
+                        <textarea type="text" name="description" id="pdtDesc" rows="10"></textarea>
+                        <small>Description is required.</small>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="pdtImages">Images</label>
+                        <input type="file" accept="image/*" multiple name="productImages" id="pdtImages">
+                        <small>Image is required.</small>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="length">Length (in cm)</label>
+                        <input type="number" name="length" id="length" min="0" value="0" step="0.1">
+                        <small>Length is required and cannot be negative.</small>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="breadth">Breadth (in cm)</label>
+                        <input type="number" name="breadth" id="breadth" min="0" value="0" step="0.1">
+                        <small>Breadth is required and cannot be negative.</small>
+                    </div>
+
+
+
+                    <div class="form-control">
+                        <label for="height">Height (in cm)</label>
+                        <input type="number" name="height" id="height" min="0" value="0" step="0.1">
+                        <small>Height is required and cannot be negative.</small>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="color">Color</label>
+                        <input type="text" id="color" name="color">
+                        <small>Color is required.</small>
+                    </div>
+
+
+                    <div class="form-control">
+                        <label for="material">Material</label>
+                        <input type="text" name="material" id="material">
+                        <small>Material is required.</small>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="weight">Weight (in grams)</label>
+                        <input type="number" name="weight" id="weight" min="0" value="0">
+                        <small>Weight is required and cannot be negative.</small>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" name="quantity" id="quantity" min="0" value="0" step="1">
+                        <small>Quantity is required and cannot be negative.</small>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="size">Size</label>
+                        <select name="size" id="size">
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                        </select>
+                        <small>Size is required.</small>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="suitableFor">Suitable For (if any)</label>
+                        <input type="text" name="suitableFor" id="suitableFor">
+                    </div>
+
+
+                    <div class="form-control">
+                        <label for="idealFor">Ideal For (if any)</label>
+                        <input type="text" name="idealFor" id="idealFor">
+                    </div>
+
+                    <div class="form-control">
+                        <label for="careInstructions">Care Instructions (if any)</label>
+                        <input type="text" name="careInstructions" id="careInstructions">
+                    </div>
+
+                    <div class="form-control">
+                        <label for="pdtStory">Product Story (if available)</label>
+                        <input type="text" name="productStory" id="pdtStory">
+                    </div>
+
+                    <div>
+                        <button class="pdt-create-btn">Create</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- <script src="./app.js"></script> -->
+    <script src="/js/adminDashboard.js"></script>
+</body>
+
+</html>

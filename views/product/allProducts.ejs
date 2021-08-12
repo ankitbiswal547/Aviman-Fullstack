@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Product</title>
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="/stylesheets/aboutUs.css">
+    <link rel="stylesheet" href="/stylesheets/categories.css">
+    <link rel="stylesheet" href="/stylesheets/newProducts.css">
+    <link rel="stylesheet" href="/stylesheets/singleProduct/singleProduct.css">
+    <link rel="stylesheet" href="/stylesheets/categoryProducts/categoryProducts.css">
+    <link rel="stylesheet" href="/stylesheets/flash/flash.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" />
+</head>
+
+<body>
+    <%- include("../partials/flashMsg") %>
+        <%- include('../partials/navbar') %>
+
+            <div id="category-products-container">
+                <div class="cp-all-products">
+                    <div class="cp-title">
+                        <%= title %>
+                    </div>
+
+                    <div class="cp-filters-and-view">
+                        <div class="cp-filters-and-views-first-div">
+                            <div class="cp-filter-settings">
+                                filters <i class="fas fa-chevron-down filters-animate-arrow"></i>
+                            </div>
+                            <div class="cp-view-settings">
+                                <i id="switchTo3" class="fas fa-th view-active"></i>
+                                <i id="switchTo2" class="fas fa-th-large"></i>
+                            </div>
+                        </div>
+                        <form class="filters-form" style="width: 100%;" action="/products/filters" method="get">
+                            <div class="all-filters">
+                                <!-- <div class="cp-filter-state-list">
+                                State
+                            </div>
+    
+                            <div class="all-states-list">
+                                <i class="fas fa-sort-up"></i>
+                                <label class="each-state-container">Odisha
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">West Bengal
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Jharkhand
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Maharastra
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Punjab
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="each-state-container">Kerela
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="each-state-container">Assam
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="each-state-container">Tripura
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="each-state-container">Jammu & Khashmir
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Chattishgarh
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Andhra Pradesh
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Arunachal Pradesh
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Bihar
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Goa
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Gujarat
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Haryana
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Himanchal Pradesh
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Karnataka
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Madhya Pradesh
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Manipur
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Meghalaya
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Mizoram
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Nagaland
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Rajasthan
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Sikkim
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Tamil Nadu
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Telengana
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Uttar Pradesh
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Uttarakhand
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Andaman & Nicobar Islands
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Chandigarh
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Delhi
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Ladakh
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Lakshsdweep
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+    
+                                <label class="each-state-container">Puducherry
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div> -->
+
+
+
+                                <div class="cp-filter-price-range">
+                                    Price Range
+                                </div>
+
+                                <div class="all-price-ranges-list">
+                                    <i class="fas fa-sort-up"></i>
+                                    <!-- <label class="each-state-container">0 - Rs. 499/-
+                                    <input type="checkbox" checked="checked" name="priceRange[]" value="499">
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <label class="each-state-container">Rs. 500/- to Rs. 999/-
+                                    <input type="checkbox" checked="checked" name="priceRange[]" value="999">
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <label class="each-state-container">Rs. 1000/- to Rs. 1999/-
+                                    <input type="checkbox" checked="checked" name="priceRange[]" value="1999">
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <label class="each-state-container">Rs. 2000/- to Rs. 3999/-
+                                    <input type="checkbox" checked="checked" name="priceRange[]" value="3999">
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <label class="each-state-container">Rs. 4000/- and Above
+                                    <input type="checkbox" checked="checked" name="priceRange[]" value="4000">
+                                    <span class="checkmark"></span>
+                                </label> -->
+                                    <div class="price-range-sec">
+                                        <h2>Between</h2>
+                                        <div class="price-range-input-sec">
+                                            <div>
+                                                <p class="rupees">Rs</p>
+                                                <input type="number" name="lowerLimit" id="lowerLimit" min="0"
+                                                    step="100" placeholder="Min price">
+                                            </div>
+                                            <div class="price-and">and</div>
+                                            <div>
+                                                <p class="rupees">Rs</p>
+                                                <input type="number" name="upperLimit" id="upperLimit" min="0"
+                                                    step="100" placeholder="Max price">
+                                            </div>
+                                        </div>
+                                        <small class="price-range-msg"></small>
+                                    </div>
+
+                                </div>
+
+                                <div class="cp-filter-size">
+                                    Size
+                                </div>
+
+                                <div class="all-size-list">
+                                    <i class="fas fa-sort-up"></i>
+                                    <label class="each-state-container">Small
+                                        <input type="checkbox" name="size[]" value="small">
+                                        <span class="checkmark"></span>
+                                    </label>
+
+                                    <label class="each-state-container">Medium
+                                        <input type="checkbox" name="size[]" value="medium">
+                                        <span class="checkmark"></span>
+                                    </label>
+
+                                    <label class="each-state-container">Large
+                                        <input type="checkbox" name="size[]" value="large">
+                                        <span class="checkmark"></span>
+                                    </label>
+
+                                    <!-- <label class="each-state-container">Large
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                </label>
+
+                                <label class="each-state-container">Extra Large
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                </label> -->
+                                </div>
+
+                                <div class="changes-apply-sec">
+                                    <button class="apply-changes-btn">Apply Changes</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div class="cp-search-products">
+                        <form action="/products" method="GET" class="searchbar-form">
+                            <input class="searchbar-form-input" type="text" name="search" placeholder="Search" id="">
+
+
+                            <svg onclick="submitForm()" class="searchbar-form-button" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                preserveAspectRatio="xMidYMid meet" viewBox="0 0 35 35" width="35" height="35">
+                                <defs>
+                                    <path d="M22.36 17.11L34.49 27.36L35 34.45L26.9 35L16.97 21.43L22.36 17.11Z"
+                                        id="dqGi7pmJy">
+                                    </path>
+                                    <path
+                                        d="M25.98 13.03C25.98 20.22 20.16 26.05 12.99 26.05C5.82 26.05 0 20.22 0 13.03C0 5.84 5.82 0 12.99 0C20.16 0 25.98 5.84 25.98 13.03Z"
+                                        id="hBSC1bong"></path>
+                                    <path
+                                        d="M22.76 13.14C22.76 18.7 18.32 23.21 12.84 23.21C7.37 23.21 2.92 18.7 2.92 13.14C2.92 7.58 7.37 3.07 12.84 3.07C18.32 3.07 22.76 7.58 22.76 13.14Z"
+                                        id="a1tUCiHI6X"></path>
+                                    <path d="M33.34 32.99L32.12 28.48L27.96 32.99L33.34 32.99Z" id="cFdpnBv46"></path>
+                                </defs>
+                                <g>
+                                    <g>
+                                        <g>
+                                            <g>
+                                                <use xlink:href="#dqGi7pmJy" opacity="1" fill="#ffffff"
+                                                    fill-opacity="1">
+                                                </use>
+                                                <g>
+                                                    <use xlink:href="#dqGi7pmJy" opacity="1" fill-opacity="0"
+                                                        stroke="#000000" stroke-width="0" stroke-opacity="1"></use>
+                                                </g>
+                                            </g>
+                                            <g>
+                                                <use xlink:href="#hBSC1bong" opacity="1" fill="#ffffff"
+                                                    fill-opacity="1">
+                                                </use>
+                                            </g>
+                                        </g>
+                                        <g>
+                                            <use xlink:href="#a1tUCiHI6X" opacity="1" fill="#e85a4f" fill-opacity="1">
+                                            </use>
+                                        </g>
+                                        <g>
+                                            <use xlink:href="#cFdpnBv46" opacity="1" fill="#c2c2c2" fill-opacity="1">
+                                            </use>
+                                            <g>
+                                                <use xlink:href="#cFdpnBv46" opacity="1" fill-opacity="0"
+                                                    stroke="#000000" stroke-width="0" stroke-opacity="1"></use>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+
+                        </form>
+                    </div>
+
+                    <% if(filters.length> 0){ %>
+                        <div class="applied-filters-section">
+                            <% for(let filter of filters){ %>
+                                <div class="applied-filters">
+                                    <%= filter %></i>
+                                </div>
+                                <% } %>
+                                    <a href="/products" class="applied-filters-clear-all">
+                                        clear all
+                                    </a>
+                        </div>
+                        <% } %>
+
+                            <% if(results.length> 0){ %>
+                                <div class="cp-products-section">
+                                    <% for(let product of results) {%>
+                                        <a href="/products/<%= product._id %> " class="cp-each-product">
+                                            <% if(product.isOnSale) {%>
+                                                <div class="percentage-off-sec">
+                                                    <div>
+                                                        <%= percentageOff %>%
+                                                    </div>
+                                                    <div>OFF</div>
+                                                </div>
+                                                <% } %>
+                                                    <img class="cp-pdt-image" src="<%= product.productImages[0].url %>"
+                                                        alt="">
+                                                    <div class="cp-pdt-desc">
+                                                        <h5 class="cp-pdt-title">
+                                                            <%= product.productName %>
+                                                        </h5>
+                                                        <div class="cp-pdt-pricing">
+                                                            <div class="cp-pricing">
+                                                                <% if(product.isOnSale) {%>
+                                                                    <div class="cp-original-price cp-pdt-onsale">Rs. <%=
+                                                                            product.price %>
+                                                                    </div>
+                                                                    <div class="cp-discount-price">Rs. <%=
+                                                                            product.discountPrice %>
+                                                                    </div>
+                                                                    <% }else{ %>
+                                                                        <div class="cp-original-price">Rs. <%=
+                                                                                product.price %>
+                                                                        </div>
+                                                                        <% } %>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="free-shipping-msg"><i class="fas fa-tag"></i> Free
+                                                            Shipping
+                                                            Across India
+                                                        </div>
+                                                    </div>
+                                        </a>
+                                        <% } %>
+                                </div>
+                                <% }else{ %>
+                                    <div>
+                                        No Product Found
+                                    </div>
+                                    <% } %>
+
+
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <footer>
+                <div class="upper-footer">
+                    <div>
+                        <h2>Address</h2>
+                        <div class="address-sec">
+                            <p>Lorem Ipsum</p>
+                            <p>Bhubaneswar, Odisha</p>
+                            <p>Pin - 751010</p>
+                            <p>Contact No. - 8910101010</p>
+                        </div>
+                    </div>
+                    <div class="social-media-sec">
+                        <h2>Follow Us At</h2>
+                        <div class="social-icons">
+                            <i class="fab fa-twitter"></i>
+                            <i class="fab fa-facebook"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright-sec">
+                    © Aviman 2021
+                </div>
+            </footer>
+
+            <!-- FLOATING CART SECTION -->
+            <%- include('../partials/floatingCart') %>
+
+                <i class="fas fa-chevron-up" id="backtotop"></i>
+                <script src="/js/flash.js"></script>
+                <script src="/js/navbar.js"></script>
+                <script src="/js/categoryProducts.js"></script>
+</body>
+
+</html>

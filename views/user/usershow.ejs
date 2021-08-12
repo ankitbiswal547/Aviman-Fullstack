@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="/stylesheets/userpage/userpage.css">
+    <link rel="stylesheet" href="/stylesheets/flash/flash.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=KoHo&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" />
+</head>
+
+<body>
+    <%- include('../partials/flashMsg') %>
+        <%- include('../partials/navbar') %>
+
+
+            <div id="userpagge">
+                <% if( currUser && user._id.equals(currUser._id) && user.verified=="pending" ){ %>
+                    <div class="email-verification">
+                        <div>
+                            Your email has not been verified. To generate new verification link click the button.
+                        </div>
+                        <a href="/auth/verification/generatelink/<%= user._id %>">Generate Link</a>
+                    </div>
+                    <% } %>
+                        <div class="userpage-container">
+
+                            <div class="userpage-image-section">
+                                <img class="userpage-userimage"
+                                    src="<%= (user.profileImage.url == '') ? 'https://res.cloudinary.com/ankitcloudinary/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1627281063/samples/user-image_1_vegpkz.webp':user.profileImage.url %>"
+                                    alt="">
+
+                                <!-- <div class="image-loader">
+                            <div class="gooey">
+                                <span class="dot"></span>
+                                <div class="dots">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div> -->
+                                <% if(currUser && user._id.equals(currUser._id)){ %>
+                                    <button class="userpage-btn" onclick="showUploadSectionPopup()">Change Profile
+                                        Image</button>
+                                    <% } %>
+                                        <% if(currUser && user._id.equals(currUser._id)){ %>
+                                            <% if(user.profileImage.url !=="" ){ %>
+                                                <form class="delete-profile-image-form"
+                                                    action="/user/<%= user._id %>/profileImage?_method=DELETE"
+                                                    method="POST">
+                                                    <!-- <input type="text" name="filename" value="<%= user.profileImage.filename %>"> -->
+                                                    <button class="delete-profile-image-form-btn">Remove</button>
+                                                </form>
+                                                <% } %>
+                                                    <% } %>
+                            </div>
+                            <div class="userpage-userdetail-section">
+                                <div class="userpage-navigation">
+                                    <div id="usernav-profile" class="userpage-navigation-items usernav-active">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div id="usernav-adddress" class="userpage-navigation-items">
+                                        <i class="fas fa-address-card"></i>
+                                    </div>
+                                    <div id="usernav-history" class="userpage-navigation-items">
+                                        <i class="fas fa-history"></i>
+                                    </div>
+                                    <div id="usernav-reviews" class="userpage-navigation-items">
+                                        <i class="fas fa-comment-alt"></i>
+                                    </div>
+                                </div>
+
+                                <!-- personal details -->
+                                <div class="user-intro-sec">
+                                    <h2 class="section-heading sec-head-1">Personal Details</h2>
+                                    <div class="user-intro-sec-wrapper">
+
+                                        <!-- Non Editable section -->
+                                        <div class="userpage-noneeditable-section1">
+                                            <div class="each-intro">
+                                                <h4 class="intro-heading">Name</h4>
+                                                <p class="intro-heading-detail">
+                                                    <%= user.fullName %>
+                                                </p>
+                                            </div>
+
+                                            <% if(currUser && user._id.equals(currUser._id)) { %>
+                                                <div class="each-intro">
+                                                    <h4 class="intro-heading">Username</h4>
+                                                    <p class="intro-heading-detail">
+                                                        <%= user.username %>
+                                                    </p>
+                                                </div>
+
+                                                <div class="each-intro">
+                                                    <h4 class="intro-heading">Email</h4>
+                                                    <p class="intro-heading-detail">
+                                                        <%= user.email %>
+                                                    </p>
+                                                </div>
+                                                <% } %>
+
+                                                    <div class="each-intro">
+                                                        <h4 class="intro-heading">About</h4>
+                                                        <p class="intro-heading-detail">
+                                                            <% if(!user.description){ %>
+                                                                No Description Added
+                                                                <% }else{ %>
+                                                                    <%= user.description %>
+                                                                        <% } %>
+                                                        </p>
+                                                    </div>
+                                                    <% if(currUser && user._id.equals(currUser._id)){ %>
+                                                        <button id="showEditable1" onclick="showEditable(1)"
+                                                            class="profile-editable-btn">Edit</button>
+                                                        <% } %>
+
+                                        </div>
+
+                                        <!-- Editable section -->
+                                        <div class="userpage-editable-section userpage-editable-section1">
+                                            <form class="user-details-form" action="/user/<%= user._id %>" method="POST"
+                                                autocomplete="off" spellcheck="false" novalidate>
+                                                <div class="each-intro">
+                                                    <label for="usernameInput" class="intro-heading">Name<span
+                                                            class="field-required">*</span></label>
+                                                    <input class="userpage-input" id="usernameInput" type="text"
+                                                        name="fullName" value="<%= user.fullName %>">
+                                                    <small>Name is required.</small>
+                                                </div>
+
+                                                <div class="each-intro">
+                                                    <label for="userEmail" class="intro-heading">Email<span
+                                                            class="field-required">*</span></label>
+                                                    <input class="userpage-input" id="userEmail" type="email"
+                                                        name="email" value="<%= user.email %>">
+                                                    <small>Email address is required.</small>
+                                                </div>
+
+                                                <div class="each-intro">
+                                                    <label for="userAbout" class="intro-heading">About</label>
+                                                    <textarea id="userAbout" class="userpage-about" name="description"
+                                                        cols="30"
+                                                        rows="10"><% if(user.description){ %><%= user.description %><% } %></textarea>
+                                                </div>
+
+                                                <div class="editable-button-sec">
+                                                    <button id="hideEditable1" onclick="hideEditable(1, event)"
+                                                        class="profile-cancel-btn">Cancel</button>
+                                                    <button class="userpage-btn">Update</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- address -->
+
+                                <div class="address-section">
+                                    <h2 class="section-heading sec-head-2">Address</h2>
+                                    <% if(currUser && user._id.equals(currUser._id)){ %>
+                                        <% for(let address of user.addresses){ %>
+                                            <div class="address-section-wrapper">
+
+                                                <!-- Non Editable section -->
+                                                <div class="userpage-noneeditable-section<%= address._id %>">
+                                                    <div class="each-intro">
+                                                        <h4 class="intro-heading">Country</h4>
+                                                        <p class="intro-heading-detail">
+                                                            <%= address.country %>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="each-intro">
+                                                        <h4 class="intro-heading">Full Name</h4>
+                                                        <p class="intro-heading-detail">
+                                                            <%= address.fullname %>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="each-intro">
+                                                        <h4 class="intro-heading">Mobile Number</h4>
+                                                        <p class="intro-heading-detail">
+                                                            <%= address.mobileNumber %>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="each-intro">
+                                                        <h4 class="intro-heading">Pincode</h4>
+                                                        <p class="intro-heading-detail">
+                                                            <%= address.pincode %>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="each-intro">
+                                                        <h4 class="intro-heading">Flat, House no., Building, Company,
+                                                            Apartment
+                                                        </h4>
+                                                        <p class="intro-heading-detail">
+                                                            <%= address.addressLineOne %>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="each-intro">
+                                                        <h4 class="intro-heading">Area, Colony, Street, Sector, Village
+                                                        </h4>
+                                                        <p class="intro-heading-detail">
+                                                            <%= address.addressLineTwo %>
+                                                        </p>
+                                                    </div>
+
+                                                    <% if(address.landmark !="" ){ %>
+                                                        <div class="each-intro">
+                                                            <h4 class="intro-heading">Landmark</h4>
+                                                            <p class="intro-heading-detail">
+                                                                <%= address.landmark %>
+                                                            </p>
+                                                        </div>
+                                                        <% } %>
+
+                                                            <div class="each-intro">
+                                                                <h4 class="intro-heading">Town/City</h4>
+                                                                <p class="intro-heading-detail">
+                                                                    <%= address.city %>
+                                                                </p>
+                                                            </div>
+
+                                                            <div class="each-intro">
+                                                                <h4 class="intro-heading">State</h4>
+                                                                <p class="intro-heading-detail">
+                                                                    <%= address.state %>
+                                                                </p>
+                                                            </div>
+
+                                                            <div class="each-intro">
+                                                                <h4 class="intro-heading">Address Type</h4>
+                                                                <p class="intro-heading-detail">
+                                                                    <%= address.addresstype %>
+                                                                </p>
+                                                            </div>
+
+                                                            <div class="userpage-address-actions">
+                                                                <form
+                                                                    action="/user/<%= user._id %>/addresses/<%= address._id %>?_method=DELETE"
+                                                                    method="POST">
+                                                                    <button class="userpage-btn">Delete</button>
+                                                                </form>
+                                                                <button id="showEditable<%= address._id %>"
+                                                                    onclick="showEditable('<%= address._id %>')"
+                                                                    class="profile-editable-btn">Edit</button>
+
+                                                            </div>
+                                                </div>
+
+                                                <!-- Editable Section -->
+                                                <div
+                                                    class="userpage-editable-section userpage-editable-section<%= address._id %>">
+                                                    <form class="address-form-<%= address._id %>"
+                                                        onsubmit="validateAddressForm('address-form-<%= address._id %>', event)"
+                                                        action="/user/<%= user._id %>/addresses/<%= address._id %>/edit?_method=PATCH"
+                                                        method="POST" autocomplete="off" spellcheck="false">
+                                                        <div class="each-intro">
+                                                            <label for="country" class="intro-heading">Country</label>
+                                                            <input disabled class="userpage-input" id="country"
+                                                                type="text" name="country"
+                                                                value="<%= address.country %>">
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="addFullname" class="intro-heading">Full
+                                                                Name<span class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="addFullname" type="text"
+                                                                name="fullname" value="<%= address.fullname %>">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="mnum" class="intro-heading">Mobile Number<span
+                                                                    class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="mnum" type="text"
+                                                                name="mobileNumber" value="<%= address.mobileNumber %>">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="pincode" class="intro-heading">Pincode<span
+                                                                    class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="pincode" type="text"
+                                                                name="pincode" value="<%= address.pincode %>">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="flatAndHouseNo" class="intro-heading">Flat,
+                                                                House no.,
+                                                                Building,
+                                                                Company,
+                                                                Apartment<span class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="flatAndHouseNo"
+                                                                type="text" name="addressLineOne"
+                                                                value="<%= address.addressLineOne %>">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="areaAndColony" class="intro-heading">Area,
+                                                                Colony,
+                                                                Street,
+                                                                Sector,
+                                                                Village<span class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="areaAndColony" type="text"
+                                                                name="addressLineTwo"
+                                                                value="<%= address.addressLineTwo %>">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="landmark" class="intro-heading">Landmark</label>
+                                                            <input class="userpage-input" id="landmark" type="text"
+                                                                name="landmark" value="<%= address.landmark %>">
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="townOrCity" class="intro-heading">Town/City<span
+                                                                    class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="townOrCity" type="text"
+                                                                name="city" value="<%= address.city %>">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="state" class="intro-heading">State<span
+                                                                    class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="state" type="text"
+                                                                name="state" value="<%= address.state %>">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="addresstype" class="intro-heading">Address
+                                                                Type<span class="field-required">*</span></label>
+                                                            <select class="selectaddresstype" id="addresstype"
+                                                                name="addresstype">
+                                                                <option value="Home" <%=(address.addresstype=="Home" )
+                                                                    ? "selected" :""%>
+                                                                    >Home
+                                                                </option>
+                                                                <option value="Office" <%=(address.addresstype=="Office"
+                                                                    ) ? "selected" :""%>
+                                                                    >Office/Workplace</option>
+                                                            </select>
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="editable-button-sec">
+                                                            <button id="hideEditable<%= address._id %>"
+                                                                onclick="hideEditable('<%= address._id %>', event)"
+                                                                class="profile-cancel-btn">Cancel</button>
+                                                            <button class="userpage-btn">Update</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <% } %>
+
+                                                <div onclick="showNewAddressForm()" class="address-sec-add-new-address">
+                                                    <svg id="add-address-plus-icon" width="121" height="121"
+                                                        viewBox="0 0 121 121" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <g id="plus">
+                                                            <line id="vertical" x1="63" y1="-5.23775e-09" x2="63"
+                                                                y2="121" stroke="#495057" stroke-width="6" />
+                                                            <line id="horizontal" x1="1.27033e-09" y1="58" x2="121"
+                                                                y2="58" stroke="#495057" stroke-width="6" />
+                                                        </g>
+                                                    </svg>
+                                                    <div class="add-address-title">Add Address</div>
+                                                </div>
+
+                                                <div class="add-new-address-form">
+                                                    <form class="add-address-form"
+                                                        onsubmit="validateNewAddressForm(event)"
+                                                        action="/user/<%= user._id %>/addresses" method="POST"
+                                                        autocomplete="off" spellcheck="false">
+                                                        <!-- <div class="each-intro">
+                                            <label for="newcountry" class="intro-heading">Country</label>
+                                            <input disabled class="userpage-input" id="newcountry" type="text"
+                                                name="country" value="India">
+                                        </div> -->
+
+                                                        <div class="each-intro">
+                                                            <label for="newaddFullname" class="intro-heading">Full
+                                                                Name<span class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="newaddFullname"
+                                                                type="text" name="fullname">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="newmobileNumber" class="intro-heading">Mobile
+                                                                Number<span class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="newmobileNumber"
+                                                                type="text" name="mobileNumber">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="newpincode" class="intro-heading">Pincode<span
+                                                                    class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="newpincode" type="text"
+                                                                name="pincode">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="newflatAndHouseNo" class="intro-heading">Flat,
+                                                                House
+                                                                no.,
+                                                                Building,
+                                                                Company,
+                                                                Apartment<span class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="newflatAndHouseNo"
+                                                                type="text" name="addressLineOne">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="newareaAndColony" class="intro-heading">Area,
+                                                                Colony,
+                                                                Street,
+                                                                Sector,
+                                                                Village<span class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="newareaAndColony"
+                                                                type="text" name="addressLineTwo">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="newlandmark"
+                                                                class="intro-heading">Landmark</label>
+                                                            <input class="userpage-input" id="newlandmark" type="text"
+                                                                name="landmark">
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="newtownOrCity"
+                                                                class="intro-heading">Town/City<span
+                                                                    class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="newtownOrCity" type="text"
+                                                                name="city">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="newstate" class="intro-heading">State<span
+                                                                    class="field-required">*</span></label>
+                                                            <input class="userpage-input" id="newstate" type="text"
+                                                                name="state">
+                                                            <small></small>
+                                                        </div>
+
+                                                        <div class="each-intro">
+                                                            <label for="addresstype" class="intro-heading">Address
+                                                                Type<span class="field-required">*</span></label>
+                                                            <select class="selectaddresstype" id="addresstype"
+                                                                name="addresstype">
+                                                                <option value="Home">Home</option>
+                                                                <option value="Office">Office/Workplace</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="editable-button-sec">
+                                                            <button onclick="showAddAddressBtn(event)"
+                                                                class="profile-cancel-btn">Cancel</button>
+                                                            <button class="userpage-btn">Add Address</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <% }else{ %>
+                                                    <div class="privacy-policy">
+                                                        <div>
+                                                            <i class="fas fa-info-circle"></i> Address details have been
+                                                            deliberately
+                                                            hidden for privacy concerns.
+                                                        </div>
+                                                    </div>
+                                                    <% } %>
+                                </div>
+
+
+
+                                <!-- Order History -->
+                                <div class="order-history">
+                                    <h2 class="section-heading sec-head-3">Order History</h2>
+                                    <% if(currUser && user._id.equals(currUser._id)){ %>
+                                        <div class="order-history-wrapper">
+                                            <div class="each-order">
+                                                <div class="each-order-top">
+                                                    <img src="/photos/products/handiitems4.jpeg" width="60" height="60"
+                                                        alt="">
+                                                </div>
+                                                <div class="each-order-details">
+                                                    <h3 class="product-name">Lorem ipsum dolor sit.</h3>
+                                                    <p class="purchase-date">20 june 2019</p>
+                                                    <div class="purchase-confirmation">Purchased
+                                                        <svg id="check-mark" width="15" height="15"
+                                                            viewBox="0 0 100 100" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="checked">
+                                                                <rect width="100" height="100" rx="50" fill="#4BB543" />
+                                                                <path id="tick"
+                                                                    d="M25.1067 49.6345L21.7674 52.8652C21.3853 53.2349 21.3593 53.8391 21.7083 54.2403L34.911 69.4149C35.2627 69.8192 35.8706 69.8743 36.2894 69.54L78.8733 35.5416C79.3014 35.1998 79.3748 34.5772 79.0379 34.1452L76.1719 30.4699C75.83 30.0315 75.1963 29.9561 74.7611 30.302L36.9374 60.3627C36.5158 60.6977 35.9047 60.6388 35.5549 60.2294L26.5623 49.7037C26.1878 49.2653 25.5211 49.2336 25.1067 49.6345Z"
+                                                                    fill="white" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="each-order-actions">
+                                                    <button class="order-receipt">Receipt</button>
+                                                    <button class="order-delete">Delete</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="each-order">
+                                                <div class="each-order-top">
+                                                    <img src="/photos/products/handiitems4.jpeg" width="60" height="60"
+                                                        alt="">
+                                                </div>
+                                                <div class="each-order-details">
+                                                    <h3 class="product-name">Lorem ipsum dolor sit.</h3>
+                                                    <p class="purchase-date">20 june 2019</p>
+                                                    <div class="purchase-confirmation">Purchased
+                                                        <svg id="check-mark" width="15" height="15"
+                                                            viewBox="0 0 100 100" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="checked">
+                                                                <rect width="100" height="100" rx="50" fill="#4BB543" />
+                                                                <path id="tick"
+                                                                    d="M25.1067 49.6345L21.7674 52.8652C21.3853 53.2349 21.3593 53.8391 21.7083 54.2403L34.911 69.4149C35.2627 69.8192 35.8706 69.8743 36.2894 69.54L78.8733 35.5416C79.3014 35.1998 79.3748 34.5772 79.0379 34.1452L76.1719 30.4699C75.83 30.0315 75.1963 29.9561 74.7611 30.302L36.9374 60.3627C36.5158 60.6977 35.9047 60.6388 35.5549 60.2294L26.5623 49.7037C26.1878 49.2653 25.5211 49.2336 25.1067 49.6345Z"
+                                                                    fill="white" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="each-order-actions">
+                                                    <button class="order-receipt">Receipt</button>
+                                                    <button class="order-delete">Delete</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="each-order">
+                                                <div class="each-order-top">
+                                                    <img src="/photos/products/handiitems4.jpeg" width="60" height="60"
+                                                        alt="">
+                                                </div>
+                                                <div class="each-order-details">
+                                                    <h3 class="product-name">Lorem ipsum dolor sit amet consectetur..
+                                                    </h3>
+                                                    <p class="purchase-date">20 june 2019</p>
+                                                    <div class="purchase-confirmation">Purchased
+                                                        <svg id="check-mark" width="15" height="15"
+                                                            viewBox="0 0 100 100" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="checked">
+                                                                <rect width="100" height="100" rx="50" fill="#4BB543" />
+                                                                <path id="tick"
+                                                                    d="M25.1067 49.6345L21.7674 52.8652C21.3853 53.2349 21.3593 53.8391 21.7083 54.2403L34.911 69.4149C35.2627 69.8192 35.8706 69.8743 36.2894 69.54L78.8733 35.5416C79.3014 35.1998 79.3748 34.5772 79.0379 34.1452L76.1719 30.4699C75.83 30.0315 75.1963 29.9561 74.7611 30.302L36.9374 60.3627C36.5158 60.6977 35.9047 60.6388 35.5549 60.2294L26.5623 49.7037C26.1878 49.2653 25.5211 49.2336 25.1067 49.6345Z"
+                                                                    fill="white" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="each-order-actions">
+                                                    <button class="order-receipt">Receipt</button>
+                                                    <button class="order-delete">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }else{ %>
+                                            <div class="privacy-policy">
+                                                <div>
+                                                    <i class="fas fa-info-circle"></i> Purchase History have been
+                                                    deliberately
+                                                    hidden for privacy concerns.
+                                                </div>
+                                            </div>
+                                            <% } %>
+                                </div>
+
+                                <div class="reviews-history">
+                                    <h2 class="section-heading sec-head-4">Reviews</h2>
+
+                                    <% if(user.reviews.length> 0){ %>
+                                        <% for(let review of user.reviews) { %>
+                                            <div class="userpage-each-review">
+                                                <div class="userpage-review-detalis">
+                                                    <div class="userpage-review-rating">
+                                                        <% for(let i=0; i < review.rating; i++){ %>
+                                                            <i class="fas fa-star"></i>
+                                                            <% } %>
+                                                    </div>
+                                                    <div class="userpage-review-addedon">
+                                                        <%= review.date.toDateString().substr(0, 15) %>
+                                                    </div>
+                                                    <div class="userpage-review-coment">
+                                                        <%= review.text %>
+                                                    </div>
+                                                    <a href="/products/<%= review.productId %>"
+                                                        class="userpage-visit-button">Visit
+                                                        Product</a>
+                                                </div>
+                                                <% if(currUser && user._id.equals(currUser._id)){ %>
+                                                    <div class="userpage-review-delete">
+                                                        <form
+                                                            action="/products/<%= review.productId %>/review/<%= review._id %>?_method=DELETE"
+                                                            method="POST">
+                                                            <button><i class="far fa-trash-alt"></i></button>
+                                                        </form>
+                                                    </div>
+                                                    <% } %>
+
+                                            </div>
+                                            <% } %>
+                                                <% }else{ %>
+                                                    <div class="privacy-policy">
+                                                        <div>
+                                                            <i class="fas fa-info-circle"></i> No reviews posted by
+                                                            <strong>
+                                                                <%= user.fullName %>
+                                                            </strong> yet.
+                                                        </div>
+                                                    </div>
+                                                    <% } %>
+
+
+
+                                                        <!-- <div class="userpage-each-review">
+                                <div class="userpage-review-detalis">
+                                    <div class="userpage-review-rating"><i class="fas fa-star"></i><i
+                                            class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                            class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                    <div class="userpage-review-addedon">20 June 2020</div>
+                                    <div class="userpage-review-coment">Lorem ipsum dolor, sit amet consectetur
+                                        adipisicing
+                                        elit. Distinctio sequi vero ducimus
+                                        cum quo beatae suscipit iure praesentium incidunt molestias eos quam laudantium
+                                        quidem
+                                        maxime, ipsum iusto atque qui esse!</div>
+                                    <a class="userpage-visit-button">Visit Product</a>
+                                </div>
+                                <div class="userpage-review-delete"><a href="#"><i class="far fa-trash-alt"></i></a>
+                                </div>
+                            </div> -->
+                                </div>
+                            </div>
+                        </div>
+            </div>
+
+            <div class="upload-image-popup-section">
+                <div class="center-userimage-popup">
+                    <h2 class="change-profile-image-heading">Change Profile Image</h2>
+                    <div class="center-userimage-popup-innerdiv">
+                        <form action="/user/<%= user._id %>/profileImage" method="POST" enctype="multipart/form-data">
+                            <div class="custom-uploadimage-section">
+                                <div class="styledinput-section">
+                                    Click To Select An Image
+                                </div>
+                                <input class="custom-upload-input" type="file" name="profileImage" accept="image/*"
+                                    id="profileImage">
+                            </div>
+                            <input class="custom-upload-submit-btn" type="submit" value="submit">
+                        </form>
+                        <p class="image-size-validation-msg">Max File Size - 2.5 Mb</p>
+                        <div class="userimage-upload-btn-section">
+                            <button class="userpage-btn" onclick="cancelUploadPopup()">Cancel</button>
+                            <button disabled id="uploadBtn" onclick="uploadBtnClicked()"
+                                class="userpage-btn">Upload</button>
+                        </div>
+
+                        <p class="dontBeSmart" style="text-align: center;color: red;margin-top: 0.4em; display: none;">
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <i class="fas fa-chevron-up" id="backtotop"></i>
+            <!-- <script type="text/javascript">
+                let proImage = document.querySelector(".userpage-userimage");
+
+                if (proImage.complete) {
+                    console.log("Loaded!!!");
+                } else {
+                    proImage.addEventListener("load", () => {
+                        console.log("loaded from onload eventlis..");
+                    })
+                }
+            </script> -->
+            <script src="/js/navbar.js"></script>
+            <script src="/js/userpage.js"></script>
+            <script src="/js/flash.js"></script>
+</body>
+
+</html>

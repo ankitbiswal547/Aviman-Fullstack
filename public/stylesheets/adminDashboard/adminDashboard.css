@@ -1,0 +1,545 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F0F3F5;
+    word-wrap: break-word;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+ul {
+    list-style: none;
+    width: 100%;
+}
+
+.side-nav {
+    min-height: 100vh;
+    background: black;
+    width: 19.59%;
+    position: absolute;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1.5em;
+    font-family: monospace;
+    font-size: 1.5em;
+    letter-spacing: 0.02em;
+    text-align: end;
+    transition: transform 0.3s ease-in;
+}
+
+.hide {
+    transform: translateX(-100%);
+}
+
+.fas.fa-bars  {
+    position: absolute;
+    background: darkgrey;
+    color: black;
+    width: 45px;
+    height: 45px;
+    display: grid;
+    place-items: center;
+    font-size: 0.8em;
+    border-radius: 50%;
+    /* right: 0; */
+    z-index: 2;
+    left: 277.5px;
+    top: 3%;
+    cursor: pointer;
+    /* padding-left: 5px; */
+    transition: all 0.3s linear;
+    /* transform: rotateZ(180deg); */
+}
+
+.arrow-right {
+    /* transform: rotateZ(0deg) !important; */
+    left: 320px !important;
+    background-color: white !important;
+    box-shadow: 0 0.46875rem 2.1875rem rgb(4 9 20 / 3%), 0 0.9375rem 1.40625rem rgb(4 9 20 / 3%), 0 0.25rem 0.53125rem rgb(4 9 20 / 5%), 0 0.125rem 0.1875rem rgb(4 9 20 / 3%);
+}
+
+.logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: left;
+    /* background: cadetblue; */
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    padding: 0 0.7em;
+    font-size: 2em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 800;
+}
+
+.nav-links {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    display: block;
+    /* height: 30px; */
+    padding: 1em 0;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    font-size: 0.9em;
+}
+
+.nav-links.active {
+    color: white;
+}
+
+.nav-links:hover{
+    color: white;
+}
+
+.admin-functionalities {
+    width: 80.41%;
+    margin-left: auto;
+}
+
+/* home */
+#home {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    display: none;
+}
+
+.stat {
+    
+    padding: 1.5em;
+    width: 28%;
+    box-shadow: 0 0.46875rem 2.1875rem rgb(4 9 20 / 3%), 0 0.9375rem 1.40625rem rgb(4 9 20 / 3%), 0 0.25rem 0.53125rem rgb(4 9 20 / 5%), 0 0.125rem 0.1875rem rgb(4 9 20 / 3%);
+    border-radius: 0.2em;
+    
+}
+
+.stat:nth-of-type(1) {
+    color: #51A5FF;
+    background: #51a5ff29;
+}
+
+.stat:nth-of-type(2) {
+    color: #4ECA8A;
+    background: #4eca8a29;
+}
+
+.stat:nth-of-type(3) {
+    color: #DD3B62;
+    background: #DD3B6229;
+}
+
+.stat-number {
+    width: 100%;
+    text-align: center;
+    font-size: 6em;
+    font-family: monospace;
+    font-weight: 900;
+}
+
+.stat-title{ 
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    font-family: monospace;
+    font-weight: 800;
+}
+
+/* all products section */
+#allProducts {
+    width: 100%;
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow-y: overlay;
+    display: none;
+}
+
+.all-pdts-heading, .edit-pdt-heading {
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: monospace;
+    font-size: 2.4em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #f7b924;
+    padding: 0.5em 0;
+    width: 90%;
+    margin: 1em auto 1em;
+    box-shadow: 0 0.46875rem 2.1875rem rgb(4 9 20 / 3%), 0 0.9375rem 1.40625rem rgb(4 9 20 / 3%), 0 0.25rem 0.53125rem rgb(4 9 20 / 5%), 0 0.125rem 0.1875rem rgb(4 9 20 / 3%);
+    border-radius: 0.1em;
+}
+
+.fire-sale-sec {
+    box-shadow: 0 0.46875rem 2.1875rem rgb(4 9 20 / 3%), 0 0.9375rem 1.40625rem rgb(4 9 20 / 3%), 0 0.25rem 0.53125rem rgb(4 9 20 / 5%), 0 0.125rem 0.1875rem rgb(4 9 20 / 3%);
+    border-radius: 0.1em;
+    background: white;
+    width: 90%;
+    margin: auto;
+    padding: 1em;
+}
+
+.fire-sale-form, .fire-sale-deactive-form{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fire-sale-input{
+    width: 76%;
+}
+
+.fire-sale-btn, .fire-sale-btn-deactive{ 
+    width: 22%;
+    padding: 0.65em 0.65em;
+    font-size: 1.1em;
+    font-family: monospace;
+    color: white;
+    border: none;
+    border-radius: 0.1em;
+    cursor: pointer;
+    height: 100%;
+    background: #f7b924;
+}
+
+.fire-sale-btn-deactive {
+    width: 80%;
+    margin: auto;
+}
+
+.allproducts-show-container {
+    display: flex;
+    width: 90%;
+    margin: 2em auto 1em;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.each-product {
+    width: 32%;
+    background: white;
+    padding: 1.2em;
+    box-shadow: 0 0.46875rem 2.1875rem rgb(4 9 20 / 3%), 0 0.9375rem 1.40625rem rgb(4 9 20 / 3%), 0 0.25rem 0.53125rem rgb(4 9 20 / 5%), 0 0.125rem 0.1875rem rgb(4 9 20 / 3%);
+    border-radius: 0.15em;
+    font-family: monospace;
+    margin-bottom: 2em;
+}
+
+.pdt-image-sec {
+    width: 100%;
+    margin: auto;
+}
+
+.pdt-img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.15em;
+}
+
+.pdt-info-sec p{
+    font-size: 1.2em;
+    text-align: center;
+    color: #6c757d;
+}
+
+.pdt-name {
+    margin: 0.5em 0;
+    font-size: 1.3em;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: #343a40;
+}
+
+.admin-btn-sec {
+    width: 100%;
+    margin: 1em 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.admin-btn-sec form {
+    width: 49%;
+}
+
+.admin-btn {
+    width: 100%;
+    padding: 0.65em 0;
+    font-size: 1.1em;
+    font-family: monospace;
+    color: white;
+    border: none;
+    border-radius: 0.1em;
+    cursor: pointer;
+}
+
+.admin-btn-blue {
+    background-color: #16aaff;
+}
+
+.admin-btn-danger {
+    background-color: #d92550;
+}
+
+/* .edit-product {
+    width: 65%;
+    margin: auto;
+    box-shadow: 0 0.46875rem 2.1875rem rgb(4 9 20 / 3%), 0 0.9375rem 1.40625rem rgb(4 9 20 / 3%), 0 0.25rem 0.53125rem rgb(4 9 20 / 5%), 0 0.125rem 0.1875rem rgb(4 9 20 / 3%);
+    border-radius: 0.1em;
+    background: white;
+    padding: 2em 0;
+    margin-bottom: 2em;
+} */
+
+/* add new product and form section */
+
+#addNewProduct, #editProduct {
+    width: 100%;
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow-y: overlay;
+    display: none;
+}
+#editProduct {
+    display: block;
+}
+
+.form-section, .edit-product-section {
+    width: 60%;
+    background: white;
+    margin: 3em auto;
+    padding: 1.5em 0;
+    box-shadow: 0 0.46875rem 2.1875rem rgb(4 9 20 / 3%), 0 0.9375rem 1.40625rem rgb(4 9 20 / 3%), 0 0.25rem 0.53125rem rgb(4 9 20 / 5%), 0 0.125rem 0.1875rem rgb(4 9 20 / 3%);
+    border-radius: 0.2em;
+}
+
+label, input, textarea, select {
+    width: 100%;
+    display: block;
+}
+label {
+    font-family: monospace;
+    font-size: 1.4em;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.4em;
+    color: #007bff;
+}
+
+input, textarea, select {
+    padding: 0.5em;
+    border: 1px solid #E6E6E6;
+    font-size: 1em;
+    color: darkslategrey;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.02em;
+    background-color: #F8F8F8;
+    margin-bottom: 0.2em;
+}
+textarea {
+    resize: vertical;
+}
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border: 1px solid grey;
+}
+.new-pdt-form, .edit-pdt-form {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.pdt-create-btn {
+    width: 100%;
+    background: #28a745;
+    height: 50px;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    letter-spacing: 0.02em;
+    margin-top: 0.5em;
+    cursor: pointer;
+    font-family: monospace;
+}
+
+.form-control {
+    margin-bottom: 1.3em;
+}
+
+.form-control small {
+    font-family: 'Montserrat', sans-serif;
+    color: #ff0000;
+    width: 100%;
+    display: none;
+}
+
+.form-control.error input, .form-control.error textarea, .form-control.error select{
+    border: 1px solid red;
+    background-color: #ffe9e9;
+}
+
+.form-control.success input, .form-control.success textarea, .form-control.success select {
+    border: 1px solid #4BB543;
+    background-color: #f1fff0;
+}
+
+.form-control.error small {
+    display: block;
+}
+
+#home.visible {
+    display: flex;
+}
+
+#allProducts.visible {
+    display: block;
+}
+
+#addNewProduct.visible {
+    display: block;
+}
+
+#editProduct.visible {
+    display: block;
+}
+
+.nothing-to-edit-msg {
+    width: 85%;
+    margin: auto;
+    /* background: white; */
+    margin: 3em auto;
+    padding: 1em;
+    box-shadow: 0 0.46875rem 2.1875rem rgb(4 9 20 / 3%), 0 0.9375rem 1.40625rem rgb(4 9 20 / 3%), 0 0.25rem 0.53125rem rgb(4 9 20 / 5%), 0 0.125rem 0.1875rem rgb(4 9 20 / 3%);
+    border-radius: 0.2em;
+    font-size: 1.3em;
+    text-align: center;
+    font-family: monospace;
+    color: #1184ff;
+    background: #b1d7ff5c;
+    letter-spacing: 0.02em;
+}
+
+.pdt-images-sec {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-evenly;
+}
+
+.edit-pdt-item {
+    width: 45%;
+    margin-bottom: 1em;
+}
+
+.edit-pdt-images {
+    width: 100%;
+    /* border: 1px solid grey; */
+}
+
+.pdt-check-sec {
+    display: flex;
+    align-items: center;
+}
+
+.pdt-check-sec input, .pdt-check-sec label {
+    width: auto;
+    margin: 0;
+}
+.pdt-check-sec input {
+    margin-right: 0.5em;
+}
+@media (min-width:1440px) {
+    .fas.fa-bars {
+        display: none;
+    }
+}
+@media (max-width: 1439px) {
+    .side-nav {
+        width: 300px;
+    }
+
+    .admin-functionalities {
+        width: 100%;
+    }
+    .each-product {
+        width: 32%;
+    }
+
+    .form-section, .edit-product-section {
+        width: 67%;
+    }
+}
+
+@media (max-width: 769px) {
+    .side-nav {
+        width: 300px;
+    }
+
+    .admin-functionalities {
+        width: 100%;
+    }
+    .each-product {
+        width: 49%;
+    }
+
+    .form-section, .edit-product-section {
+        width: 80%;
+    }
+    .stat {
+        width: 80%;
+    }
+}  
+
+@media (max-width: 426px) {
+    .side-nav {
+        width: 70.59%;
+    }
+    .each-product {
+        width: 100%;
+    }
+
+    .form-section, .edit-product-section {
+        width: 90%;
+    }
+    .stat {
+        width: 85%;
+    }
+} 
+
+@media (max-width: 376px) {
+    .side-nav {
+        width: 73.8%;
+    }
+
+    .fas.fa-bars {
+        left: 254.5px;   
+    }
+
+    .arrow-right {
+        left: 295px !important;
+    }
+    .stat {
+        width: 90%;
+    }
+}
+
+@media (max-width: 321px) {
+    .side-nav {
+        width: 86.8%;
+    }
+}

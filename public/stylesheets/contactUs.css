@@ -1,0 +1,223 @@
+.contactus-title {
+    text-align: center;
+    font-size: 40px;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    color: #e85a4f;
+    margin-bottom: 1em;
+}
+
+.contactus-submit-section {
+    width: 100%;
+    margin: auto;
+    margin-top: 2em;
+}
+
+.contactus-submit-section button {
+    width: 100%;
+    border: none;
+    height: 50px;
+    border-radius: 30px;
+    font-size: 16px;
+    background-color: #e85a4f;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    margin: 0em 0 1em;
+    transition: all 0.2s linear;
+}
+
+.contactus-submit-section button:hover {
+    background-color: #ff6e5e;
+}
+
+#contact-us {
+    padding: 4em 0;
+    background-color: #eae7dc;
+}
+
+.contactus-container {
+    background-color: white;
+    width: 75%;
+    margin:auto;
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0px 1px 31px -8px #7d7d7d;
+}
+
+.contactus-new-left {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.get-in-touch {
+    font-size: 35px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #4e4e4e;
+}
+
+.contactus-svg-container {
+    perspective: 40px;
+    width: 400px;
+    height: 400px;
+}
+.contactus-svg {
+    width: 100%;
+    height: 100%;
+}
+.contactus-svg svg{
+    width: 100%;
+    height: 100%;
+}
+
+.contactus-new-right {
+    background:url('../photos/contactus-bg.jpeg');
+    width: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.contactus-right-background-overlay {
+    width: 100%;
+    height: 100%;
+    background: #0000007d;
+    padding: 2em 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.contactus-form{
+    width: 75%;
+    margin: auto;
+}
+
+.contactus-form-control {
+    margin-bottom: 1em;
+}
+
+.contactus-form-control small {
+    color: red;
+    display: block;
+    margin-top: 0.3em;
+    padding-left: 0.5em;
+    font-size: 0.9em;
+    letter-spacing: 0.02em;
+    display: none;
+}
+
+.contactus-form input, .contactus-form textarea {
+    background-color: rgba(255, 255, 255, .23);  
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    letter-spacing: 0.1em;
+    color: white;
+    border: 1px solid transparent;
+    transition: all 0.2s linear;
+}
+
+.contactus-form input::placeholder, .contactus-form textarea::placeholder {
+    color: white;
+    letter-spacing: 0.1em;
+}
+
+.contactus-form input:hover, .contactus-form textarea:hover, .contactus-form input:focus, .contactus-form textarea:focus {
+    outline: none;
+    background-color: transparent;  
+    border: 0.8px solid #cccccc;
+}
+
+.contactus-form input {
+    height: 50px;
+    padding: 0 2em;
+}
+
+.contactus-form textarea {
+    padding: 1.5em;
+    resize: none;
+}
+
+@media screen and (max-width:1025px) {
+    #contact-us {
+        padding: 3rem 0;
+    }
+    .contactus-title {
+        font-size: 2.3em;
+        margin-bottom: 0.9em;
+    }
+    .contactus-container {
+        width: 90%;
+    }
+    .contactus-form {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width:769px) {
+    #contact-us {
+        padding: 2rem 0;
+    }
+
+    .get-in-touch{ 
+        font-size: 2em;
+    }
+
+
+    .contactus-svg-container {
+        width: 300px;
+        height: 300px;
+    }
+
+    .contactus-form {
+        width: 90%;
+    }
+
+    .contactus-form textarea {
+        height: 8.5em;
+        padding: 1em 1.5em;
+    }
+}
+
+@media screen and (max-width:541px) {
+
+
+    .contactus-title {
+        font-size: 30px;
+    }
+
+    .contactus-container {
+        width: 80%;
+    }
+    .contactus-new-left {
+        display: none;
+    }
+     .contactus-new-right {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .contactus-right-background-overlay {
+        border-radius: 10px;
+    }
+    .contactus-form textarea {
+        height: 13em;
+        padding: 1em 1.5em;
+    }
+
+}
+
+@media screen and (max-width:426px) {
+    .contactus-container {
+        width: 95%;
+    }
+}

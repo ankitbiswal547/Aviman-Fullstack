@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/stylesheets/login and signup/login.css">
+    <link rel="stylesheet" href="/stylesheets/flash/flash.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <%- include('partials/flashMsg') %>
+        <div class="container-login-signup">
+
+            <div class="login-signup-div">
+                <div class="login-signup-title-div">
+                    <h2 class="login-signup-title login-class-extra">LOGIN</h2>
+                </div>
+                <h3 class="have-an-account">Have an account?</h3>
+
+                <form action="/login" method="POST" class="login-signup-form" autocomplete="off" spellcheck="false">
+                    <input class="login-signup-username" type="text" name="username" placeholder="Username">
+                    <input class="login-signup-password" type="password" name="password" placeholder="Password">
+                    <button class="login-signup-signin-btn">Sign In</button>
+                </form>
+
+                <div class="login-forgot-password">
+                    Forgot Password
+                </div>
+
+                <div class="sign-in-with">
+                    <hr>
+                    <p>or Signin with</p>
+                    <hr>
+                </div>
+                <div class="login-signup-other-buttons">
+                    <button class="login-signup-through-facebook">Facebook</button>
+                    <button class="login-signup-through-google">Google</button>
+                </div>
+                <div class="signup-needed">
+                    don't have an account? <a href="/register">Sign Up</a>
+                </div>
+
+                <a class="back-to-home" href="/">
+                    <div>Home</div>
+                </a>
+            </div>
+
+
+        </div>
+
+        <script src="/js/flash.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/adminDashboard/adminDashboard.css">
+    <!-- <link rel="stylesheet" href="./styles.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" />
+</head>
+
+<body>
+    <div id="editProduct">
+
+        <h2 class="edit-pdt-heading">Edit Product</h2>
+
+        <div class="edit-product-section">
+
+            <form spellcheck="false" class="edit-pdt-form" action="/products/<%= product._id %>?_method=PATCH"
+                method="POST" enctype="multipart/form-data">
+                <div class="form-control">
+                    <label for="pdtName">Product Name</label>
+                    <input type="text" name="productName" value="<%= product.productName %>" id="pdtName">
+                    <small>Enter a valid Product Name.</small>
+                </div>
+
+                <div class="form-control">
+                    <label for="pdtCode">Product Code</label>
+                    <input type="text" name="productCode" value="<%= product.productCode %>" id="pdtCode">
+                    <small>Enter a valid Product Code.</small>
+                </div>
+
+                <div class="form-control">
+                    <label for="category">Category</label>
+                    <select name="category" id="category">
+
+                        <option value="pattachitra" <%=(product.category=="pattachitra" ) ? "selected" : "" %>
+                            >Pattachitra</option>
+                        <option value="chandua" <%=(product.category=="chandua" ) ? "selected" : "" %>>Chandua</option>
+                        <option value="sculpture" <%=(product.category=="sculpture" ) ? "selected" : "" %>>Sculpture
+                        </option>
+                        <option value="woodenIdol" <%=(product.category=="woodenIdol" ) ? "selected" : "" %>>Wooden Idol
+                        </option>
+                        <option value="paperMache" <%=(product.category=="paperMache" ) ? "selected" : "" %>>Paper Mache
+                        </option>
+                        <option value="painting" <%=(product.category=="painting" ) ? "selected" : "" %>>Painting
+                        </option>
+                    </select>
+                    <small>Category Name is required.</small>
+                </div>
+
+                <div class="form-control">
+                    <label for="price">Price (in Rs.)</label>
+                    <input type="number" name="price" value="<%= product.price %>" id="price">
+                    <small>Price is required and cannot be negative.</small>
+                </div>
+
+                <div class="form-control">
+                    <label for="pdtDesc">Description</label>
+                    <textarea type="text" name="description" id="pdtDesc"
+                        rows="10"><%= product.description %></textarea>
+                    <small>Description is required.</small>
+                </div>
+
+                <div class="form-control">
+                    <label for="pdtImages">Images</label>
+                    <input type="file" accept="image/*" multiple name="productImages" id="pdtImages">
+                    <small>Image is required.</small>
+                </div>
+
+                <div class="form-control">
+                    <label for="length">Length (in cm)</label>
+                    <input type="number" name="length" value="<%= product.length %>" min="0" step="0.1" id="length">
+                    <small>Length is required and cannot be negative.</small>
+                </div>
+
+                <div class="form-control">
+                    <label for="breadth">Breadth (in cm)</label>
+                    <input type="number" name="breadth" value="<%= product.breadth %>" min="0" step="0.1" id="breadth">
+                    <small>Breadth is required and cannot be negative.</small>
+                </div>
+
+
+
+                <div class="form-control">
+                    <label for="height">Height (in cm)</label>
+                    <input type="number" name="height" value="<%= product.height %>" min="0" step="0.1" id="height">
+                    <small>Height is required and cannot be negative.</small>
+                </div>
+
+                <div class="form-control">
+                    <label for="color">Color</label>
+                    <input type="text" id="color" value="<%= product.color %>" name="color">
+                    <small>Color is required.</small>
+                </div>
+
+
+                <div class="form-control">
+                    <label for="material">Material</label>
+                    <input type="text" name="material" value="<%= product.material %>" id="material">
+                    <small>Material is required.</small>
+                </div>
+
+                <div class="form-control">
+                    <label for="weight">Weight (in grams)</label>
+                    <input type="number" name="weight" value="<%= product.weight %>" id="weight" min="0">
+                    <small>Weight is required and cannot be negative.</small>
+                </div>
+
+                <div class="form-control">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" name="quantity" value="<%= product.quantity %>" id="quantity" min="0" step="1">
+                    <small>Quantity is required and cannot be negative.</small>
+                </div>
+
+                <div class="form-control">
+                    <label for="size">Size</label>
+                    <select name="size" id="size">
+                        <option value="small" <%=(product.size=="small" ) ? "selected" : "" %> >Small</option>
+                        <option value="medium" <%=(product.size=="medium" ) ? "selected" : "" %>>Medium</option>
+                        <option value="large" <%=(product.size=="large" ) ? "selected" : "" %>>Large</option>
+                    </select>
+                    <small>Size is required.</small>
+                </div>
+
+                <div class="form-control">
+                    <label for="suitableFor">Suitable For (if any)</label>
+                    <input type="text" name="suitableFor" value="<%= product.suitableFor %>" id="suitableFor">
+                </div>
+
+
+                <div class="form-control">
+                    <label for="idealFor">Ideal For (if any)</label>
+                    <input type="text" name="idealFor" value="<%= product.idealFor %>" id="idealFor">
+                </div>
+
+                <div class="form-control">
+                    <label for="careInstructions">Care Instructions (if any)</label>
+                    <input type="text" name="careInstructions" value="<%= product.careInstructions %>"
+                        id="careInstructions">
+                </div>
+
+                <div class="form-control">
+                    <label for="pdtStory">Product Story (if available)</label>
+                    <input type="text" name="productStory" value="<%= product.productStory %>" id="pdtStory">
+                </div>
+
+                <div class="pdt-images-sec">
+                    <% product.productImages.forEach(function(img, i) { %>
+                        <div class="edit-pdt-item">
+                            <img class="edit-pdt-images" src="<%= img.url %>" alt="">
+                            <div class="pdt-check-sec">
+                                <input type="checkbox" name="deleteImages[]" value="<%= img.filename %>"
+                                    id="image-<%= i %>">
+                                <label for="image-<%= i %>">Delete?</label>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+
+                <div>
+                    <button class="pdt-create-btn">Update</button>
+                </div>
+            </form>
+        </div>
+        <!-- <div class="nothing-to-edit-msg">No product has been selected to edit</div> -->
+
+    </div>
+
+    <!-- <script src="./app.js"></script> -->
+    <!-- <script src="/js/adminDashboard.js"></script> -->
+    <script src="/js/editProduct.js"></script>
+
+</body>
+
+</html>

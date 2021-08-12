@@ -1,0 +1,98 @@
+#aboutus {
+    position: relative;
+}
+
+
+.aboutus-container {
+    width: 80%;
+    padding: 4rem 0;
+    margin: 0 auto;
+}
+
+.our-mission, .what-we-do {
+    display: flex;
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.what-we-do {
+    margin-top: 5rem;
+}
+
+.mission, .vision {
+    width: 46.5%;
+    height: 620px;
+}
+
+.mission-desc, .vision-desc {
+    width: 46.5%;
+}
+
+.mission-title, .vision-title {
+    font-size: 2.3em;
+    color: #e85a4f;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+
+.mission-para, .vision-para {
+    font-size: 20px;
+    word-spacing: 0.1em;
+    color: #8e8d8a;
+}
+
+.vision-para, .vision-title {
+    text-align: right;
+}
+@media screen and (max-width:1025px) {
+    .aboutus-container {
+        width: 90%;
+        padding: 3rem 0;
+    }
+    .mission-para, .vision-para {
+        font-size: 1.17em;
+    }
+}
+
+@media screen and (max-width:769px) {
+    .aboutus-container {
+        padding: 2rem 0;
+    }
+    .mission, .vision {
+        height: 450px;
+    }
+
+    .mission-para, .vision-para{
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width:540px) {
+
+    .our-mission, .what-we-do {
+        flex-direction: column;
+    }
+
+    .mission-title, .vision-title, .mission-para, .vision-para {
+        text-align: center;
+    }
+
+    .mission, .vision {
+        display: none;
+    }
+    .mission-desc, .vision-desc {
+        width: 100%;
+    }
+
+    .what-we-do {
+        margin-top: 2rem;
+    }
+}
+
+@media screen and (max-width:376px){
+    .aboutus-container {
+        width: 95%;
+        padding: 2rem 0;
+    }
+}

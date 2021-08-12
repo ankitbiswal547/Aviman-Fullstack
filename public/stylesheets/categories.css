@@ -1,0 +1,195 @@
+#categories {
+    background-color: #eae7dc;
+    padding: 4rem 0;
+}
+
+.category-container {
+    width: 75%;
+    margin: 0 auto;
+}
+.category-title {
+    text-align: center;
+    font-size: 40px;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    color: #e85a4f;
+}
+
+.quote {
+    color: #8e8d8a;
+    letter-spacing: 0.05em;
+    text-align: center;
+    margin: 1em 0;
+}
+
+.quote h4 {
+    font-weight: 500;
+}
+
+.quote small {
+    font-weight: bolder;
+    font-size: 1.1rem;
+    /* margin: 0.4em 0; */
+}
+
+.category-area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.each-category {
+    width: 31.5%;
+    min-height: 350px;
+    color: white;
+    background-color: black;
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+    box-shadow: 0px 3px 4px rgb(56, 56, 56);
+}
+.each-category:nth-of-type(1) {
+    background-image: url("../photos/categories/spice-box.jpeg");
+    margin: 2.3rem 0;
+}
+.each-category:nth-of-type(2) {
+    background-image: url("../photos/categories/cups\ and\ mugs.webp");
+    margin: 2.3rem 0;
+}
+.each-category:nth-of-type(3) {
+    background-image: url("../photos/categories/plates.jpg");
+    margin: 2.3rem 0;
+}
+.each-category:nth-of-type(4) {
+    background-image: url("../photos/categories/pots.jpg");
+}
+.each-category:nth-of-type(5) {
+    background-image: url("../photos/categories/hangings.jpg");
+}
+.each-category:nth-of-type(6) {
+    background-image: url("../photos/categories/lamps.jpg");
+}
+
+.each-category p {
+    width: 100%;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    background-color: rgba(0, 0, 0, 0.404);
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.1s linear, font-size 0.2s linear;
+}
+.each-category p a{
+    color: white;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.each-category p:hover {
+    background-color: rgba(0, 0, 0, 0.712);
+    font-size: 40px;
+}
+
+@media screen and (max-width:1025px) {
+    #categories {
+        padding: 3rem 0;
+    }
+    .category-container {
+        width: 90%;
+    }
+
+    .category-title {
+        font-size: 2.3em;
+    }
+
+    .each-category {
+        min-height: 290.3px;
+    }
+    .each-category p {
+        font-size: 1.5em;
+        height: 290.3px;
+    }
+    .each-category p:hover {
+        font-size: 1.9em;
+    }
+}
+
+@media screen and (max-width:769px) {
+    #categories {
+        padding: 2rem 0;
+    }
+
+
+    .each-category {
+        min-height: 217.725px;
+    }
+    .each-category p {
+        font-size: 1.3em;
+        height: 217.725px;
+    }
+    .each-category p:hover {
+        font-size: 1.6em;
+    }
+}
+
+@media screen and (max-width:541px) {
+
+
+    .category-container{
+        width: 85%;
+    }
+
+    .each-category {
+        width: 48%;
+        min-height: 173.637px;
+    }
+
+    .each-category p {
+        font-size: 1em;
+        height: 173.637px;
+    }
+
+    .each-category p:hover {
+        font-size: 1.3em;
+    }
+    .each-category:not(:last-child), .each-category:not(:nth-last-child(2)) {
+        margin: 0 auto 0.6rem;
+    }
+    
+}
+
+@media screen and (max-width:376px) {
+
+    .category-container {
+        width: 95%;
+    }
+    .category-title {
+        font-size: 30px;
+    }
+
+    .each-category {
+        width: 304px;
+        min-height: 304px;
+    }
+
+    .each-category p {
+        height: 304px;
+    }
+
+    .each-category:not(:last-child) {
+        margin: 0 auto 2rem;
+    }
+    .each-category:last-child {
+        margin: 0 auto;
+    }
+    /* .each-category p:hover {
+        font-size: 30px;
+    } */
+}

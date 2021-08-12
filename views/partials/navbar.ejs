@@ -1,0 +1,94 @@
+<nav id="navbar">
+    <a href="/" id="header-link">
+        <svg id="logo" width="138" height="29" viewBox="0 0 138 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M20.836 21.7H7.444L4.672 28H0.963997L12.376 2.8H15.94L27.388 28H23.608L20.836 21.7ZM19.576 18.82L14.14 6.472L8.704 18.82H19.576Z"
+                fill="black" />
+            <path d="M46.5428 8.92L38.1908 28H34.6628L26.3108 8.92H29.9108L36.4628 24.22L43.1588 8.92H46.5428Z"
+                fill="black" />
+            <path
+                d="M49.7682 8.92H53.2242V28H49.7682V8.92ZM51.4962 5.248C50.8242 5.248 50.2602 5.032 49.8042 4.6C49.3722 4.168 49.1562 3.64 49.1562 3.016C49.1562 2.392 49.3722 1.864 49.8042 1.432C50.2602 0.975999 50.8242 0.747999 51.4962 0.747999C52.1682 0.747999 52.7202 0.963999 53.1522 1.396C53.6082 1.804 53.8362 2.32 53.8362 2.944C53.8362 3.592 53.6082 4.144 53.1522 4.6C52.7202 5.032 52.1682 5.248 51.4962 5.248Z"
+                fill="black" />
+            <path
+                d="M83.6909 8.74C86.0909 8.74 87.9869 9.436 89.3789 10.828C90.7949 12.22 91.5029 14.284 91.5029 17.02V28H88.0469V17.416C88.0469 15.568 87.6149 14.176 86.7509 13.24C85.9109 12.304 84.6989 11.836 83.1149 11.836C81.3629 11.836 79.9709 12.388 78.9389 13.492C77.9069 14.572 77.3909 16.132 77.3909 18.172V28H73.9349V17.416C73.9349 15.568 73.5029 14.176 72.6389 13.24C71.7989 12.304 70.5869 11.836 69.0029 11.836C67.2509 11.836 65.8589 12.388 64.8269 13.492C63.7949 14.572 63.2789 16.132 63.2789 18.172V28H59.8229V8.92H63.1349V11.764C63.8309 10.78 64.7429 10.036 65.8709 9.532C66.9989 9.004 68.2829 8.74 69.7229 8.74C71.2109 8.74 72.5309 9.04 73.6829 9.64C74.8349 10.24 75.7229 11.116 76.3469 12.268C77.0669 11.164 78.0629 10.3 79.3349 9.676C80.6309 9.052 82.0829 8.74 83.6909 8.74Z"
+                fill="black" />
+            <path
+                d="M104.81 8.74C107.45 8.74 109.466 9.388 110.858 10.684C112.274 11.98 112.982 13.912 112.982 16.48V28H109.706V25.48C109.13 26.368 108.302 27.052 107.222 27.532C106.166 27.988 104.906 28.216 103.442 28.216C101.306 28.216 99.5899 27.7 98.2939 26.668C97.0219 25.636 96.3859 24.28 96.3859 22.6C96.3859 20.92 96.9979 19.576 98.2219 18.568C99.4459 17.536 101.39 17.02 104.054 17.02H109.526V16.336C109.526 14.848 109.094 13.708 108.23 12.916C107.366 12.124 106.094 11.728 104.414 11.728C103.286 11.728 102.182 11.92 101.102 12.304C100.022 12.664 99.1099 13.156 98.3659 13.78L96.9259 11.188C97.9099 10.396 99.0859 9.796 100.454 9.388C101.822 8.956 103.274 8.74 104.81 8.74ZM104.018 25.552C105.338 25.552 106.478 25.264 107.438 24.688C108.398 24.088 109.094 23.248 109.526 22.168V19.504H104.198C101.27 19.504 99.8059 20.488 99.8059 22.456C99.8059 23.416 100.178 24.172 100.922 24.724C101.666 25.276 102.698 25.552 104.018 25.552Z"
+                fill="black" />
+            <path
+                d="M129.566 8.74C131.99 8.74 133.91 9.448 135.326 10.864C136.766 12.256 137.486 14.308 137.486 17.02V28H134.03V17.416C134.03 15.568 133.586 14.176 132.698 13.24C131.81 12.304 130.538 11.836 128.882 11.836C127.01 11.836 125.534 12.388 124.454 13.492C123.374 14.572 122.834 16.132 122.834 18.172V28H119.378V8.92H122.69V11.8C123.386 10.816 124.322 10.06 125.498 9.532C126.698 9.004 128.054 8.74 129.566 8.74Z"
+                fill="black" />
+        </svg>
+    </a>
+
+    <div class="nav-items-sec">
+        <ul>
+            <li>
+                <a href="/products" class="nav-link">Store</a>
+            </li>
+            <% if(!currUser){ %>
+                <li>
+                    <a href="/login" class="nav-link">Login</a>
+                </li>
+                <li>
+                    <a href="/register" class="nav-link">Signup</a>
+                </li>
+                <% }else { %>
+                    <div class="logout-section">
+                        <li onclick="openUserPanel()">
+                            <%= currUser.fullName %>
+                                <!-- <img src="<%= currUser.profileImage.url %>" width="40" height="40" alt=""> -->
+                        </li>
+                        <div class="user-dropdown">
+                            <ul class="user-dropdown-ul">
+                                <li class="user-dropdown-li"><a href="/user/<%= currUser._id %>">Profile <i
+                                            class="fas fa-user"></i></a>
+                                </li>
+                                <% if(currUser.isAdmin==true){ %>
+                                    <li class="user-dropdown-li"><a href="/admin-dashboard#allProducts">Dashboard <i
+                                                class="fas fa-sliders-h"></i></a>
+                                    </li>
+                                    <% } %>
+                                        <li class="user-dropdown-li"><a href="/cart/<%= currUser._id %>">Cart <i
+                                                    class="fas fa-shopping-cart"></i></a></li>
+                                        <li class="user-dropdown-li"><a href="#">Order History <i
+                                                    class="fas fa-history"></i></a>
+                                        </li>
+                                        <li class="user-dropdown-li"><a href="/logout">Logout <i
+                                                    class="fas fa-sign-out-alt"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <% } %>
+
+
+        </ul>
+    </div>
+
+    <!-- animated hamburger -->
+    <div class="hamburger">
+        <div class="hamline" id="hamline1"></div>
+        <div class="hamline" id="hamline2"></div>
+        <div class="hamline" id="hamline3"></div>
+    </div>
+</nav>
+
+<div class="menubar">
+    <ul>
+        <li><a href="/"><i class="fas fa-home"></i> <span>Home</span></a></li>
+        <li><a href="/products"><i class="fas fa-store"></i> <span>Store</span></a></li>
+        <% if(!currUser){ %>
+            <li><a href="/login"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a></li>
+            <li><a href="/register"><i class="fas fa-user-plus"></i> <span>Signup</span></a></li>
+            <% }else{ %>
+                <li><a href="/user/<%= currUser._id %>"><i class="fas fa-user"></i> <span>Profile</span></a></li>
+                <% if(currUser.isAdmin==true){ %>
+                    <li><a href="/admin-dashboard#allProducts"><i class="fas fa-sliders-h"></i>
+                            <span>Dashboard</span></a></li>
+                    <% } %>
+                        <li><a href="/cart/<%= currUser._id %>"><i class="fas fa-shopping-cart"></i>
+                                <span>Cart</span></a></li>
+                        <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+                        <% } %>
+    </ul>
+</div>

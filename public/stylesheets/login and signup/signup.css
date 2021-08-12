@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('../../photos/login\ and\ signup/signupBackground.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.container-login-signup {
+    background: #00000093;
+}
+.login-signup-signin-btn {
+    background: #E6CC9B;
+}
+
+.login-signup-signin-btn:hover {
+    background-color: #dfb25f;
+}
+
+.sign-in-with {
+    margin: 1.5em 0 1.5em;
+}
+
+.back-to-home div {
+    background: #1b1b1b;
+    color: white;
+}
+
+.back-to-home div:hover {
+    background: #272727;
+}
+
+@media screen and (max-width:1025px) {
+    .sign-up-class-extra {
+        margin-top: 0.4em;
+        margin-right: -0.3em;
+    }
+
+    .sign-in-with {
+        margin: 1em 0 1.5em;
+    } 
+}
+
+@media screen and (max-width:426px) {
+    .sign-up-class-extra {
+        margin-top: 1em;
+        margin-right: -0.3em;
+    }
+}

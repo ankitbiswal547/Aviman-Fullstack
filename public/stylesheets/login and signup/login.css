@@ -1,0 +1,274 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('../../photos/login\ and\ signup/login-background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.container-login-signup {
+    width: 100%;
+    min-height: 100vh;
+    background: #0000007e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.login-signup-div {
+    width: 23%;
+
+}
+
+.login-signup-title-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-signup-title {
+    font-size: 35px;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0.3em;
+    font-weight: bold;
+}
+
+.have-an-account {
+    font-weight: 300;
+    color: #fff;
+    font-size: 27px;
+    text-align: center;
+    margin: 1.8em 0 0.7em;
+}
+
+
+.login-signup-username, .login-signup-password{
+    background-color: rgba(255, 255, 255, .08);  
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    display: block;
+    width: 100%;
+    height: 50px;
+    border: none;
+    margin-bottom: 1em;
+    border-radius: 30px;
+    padding: 0 2em;
+    font-size: 16px;
+    letter-spacing: 0.1em;
+    color: white;
+    border: 1px solid transparent;
+    transition: all 0.2s linear;
+}
+
+.login-signup-username::placeholder, .login-signup-password::placeholder {
+    color: rgb(207, 207, 207);
+    letter-spacing: 0.1em;
+}
+
+.login-signup-username:focus, .login-signup-username:hover, .login-signup-password:focus, .login-signup-password:hover {
+    outline: none;
+    background-color: transparent;  
+    border: 0.8px solid #cccccc;
+
+}
+
+.login-signup-signin-btn {
+    width: 100%;
+    border: none;
+    height: 50px;
+    border-radius: 30px;
+    font-size: 16px;
+    background: #00fffb;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    margin: 0em 0 1em;
+    transition: all 0.2s linear;
+}
+
+.login-signup-signin-btn:hover {
+    background-color: #8afffd;
+}
+
+.login-forgot-password {
+    text-align: right;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+}
+
+.login-forgot-password:hover {
+    text-decoration: underline;
+    color: #eee;
+}
+
+.sign-in-with {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2.5em 0 1.5em;
+}
+
+.sign-in-with hr{
+    border: none;
+    height: 0.3px;
+    background-color: white;
+    width: 20px;
+}
+
+.sign-in-with p{
+    color: white;
+    letter-spacing: 0.05em;
+    margin: 0 0.3em;
+}
+
+.login-other-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-signup-through-facebook, .login-signup-through-google {
+    width: 49%;
+    height: 40px;
+    border: none;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.signup-needed {
+    color: white;
+    margin: 0.5em 0;
+    font-size: 13px;
+}
+
+.signup-needed a {
+    color: white;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    margin-left: 5px;
+    font-size: 15px;
+}
+
+.back-to-home {
+    text-decoration: none;
+}
+
+.back-to-home div {
+    background: #2c2c2c;
+    color: white;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin: 1.5em 0 0;
+    transition: all 0.2s linear;
+}
+
+.back-to-home div:hover {
+    background: #3b3b3b;
+}
+
+
+@media screen and (max-width:1441px) {
+    .login-signup-div {
+        width: 29%;
+    }
+    .have-an-account {
+        margin: 1em 0 0.7em;
+        font-size: 1.4em;
+    }
+    .back-to-home div { 
+        margin: 1.5em 0;
+    }
+}
+
+
+@media screen and (max-width:1025px) {
+    .login-signup-div {
+        width: 40%;
+    }
+    .have-an-account {
+        margin: 1em 0 0.7em;
+        font-size: 1.4em;
+    }
+    .back-to-home div { 
+        margin: 1.5em 0;
+    }
+}
+
+
+@media screen and (max-width:769px) {
+    .login-signup-div {
+        width: 50%;
+    }
+    .sign-in-with {
+        margin: 1.5em 0;
+    }
+    .login-class-extra {
+        margin-top: 0.5em;
+        margin-right: -0.3em;
+    }
+
+    .have-an-account {
+        margin: 1em 0 0.7em;
+        font-size: 1.4em;
+    }
+
+}
+
+@media screen and (max-width:540px) {
+    .login-signup-div {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width:426px) {
+    .login-signup-div {
+        width: 85%;
+    }
+
+}
+
+@media screen and (max-width:376px) {
+
+    .login-signup-div {
+        width: 90%;
+    }
+
+    .login-signup-username, .login-signup-password {
+        height: 45px;
+    }
+
+    .login-signup-signin-btn {
+        height: 45px;
+    }
+    .back-to-home div {
+        height: 45px;  
+        margin: 1.5em 0;
+    }
+
+    .login-class-extra {
+        margin-top: 0.5em;
+        margin-right: -0.3em;
+    }
+
+    .have-an-account {
+        margin: 1em 0 0.7em;
+        font-size: 1.4em;
+    }
+    .sign-in-with {
+        margin: 1.5em 0;
+    }
+}

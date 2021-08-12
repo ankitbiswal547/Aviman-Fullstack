@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handicraft</title>
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="/stylesheets/aboutUs.css">
+    <link rel="stylesheet" href="/stylesheets/categories.css">
+    <link rel="stylesheet" href="/stylesheets/newProducts.css">
+    <link rel="stylesheet" href="/stylesheets/contactUs.css">
+    <link rel="stylesheet" href="/stylesheets/cart/cart.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Farro:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" />
+</head>
+
+<body>
+
+    <%- include('../partials/navbar') %>
+
+        <div id="shopping-cart">
+            <h2 class="sc-title">Shopping Bag</h2>
+            <% if(totalQuantity !=0){%>
+                <div class="shopping-cart-container">
+                    <div class="sc-bag">
+                        <h4 class="bag-items-title">Bag Items(<%= totalQuantity %>)</h4>
+
+                        <!-- each bag item -->
+
+                        <% for (let i=0; i < user.cart.length; i++) { %>
+                            <div class="sc-bag-item">
+                                <form class="delete-cart-item-form"
+                                    action="/addtocart/<%= currUser._id %>/<%= user.cart[i].productId._id %>?_method=DELETE"
+                                    method="POST">
+                                    <button>
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                                <!-- <a href=""></a> -->
+                                <div class="sc-image-part">
+                                    <img src="<%= user.cart[i].productId.productImages[0].url %>" alt="">
+                                </div>
+                                <div class="sc-product-attributes">
+
+                                    <div class="sc-pa-name-price">
+                                        <div class="sc-pa-name">
+                                            <%= user.cart[i].productId.productName %>
+                                        </div>
+                                    </div>
+                                    <div class="rating-and-price">
+                                        <div>
+                                            <% if(user.cart[i].productId.averageRating % 1 !=0) { %>
+                                                <% for(let k=0; k < Math.floor(user.cart[i].productId.averageRating);
+                                                    k++) { %>
+                                                    <i class="fas fa-star"></i>
+                                                    <% } %>
+                                                        <i class="fas fa-star-half-alt"></i>
+                                                        <% }else{ %>
+                                                            <% for(let j=0; j < user.cart[i].productId.averageRating;
+                                                                j++) { %>
+                                                                <i class="fas fa-star"></i>
+                                                                <% } %>
+                                                                    <% } %>
+                                                                        <% if(user.cart[i].productId.averageRating==0)
+                                                                            {%>
+                                                                            <i class="far fa-star"></i>
+                                                                            <i class="far fa-star"></i>
+                                                                            <i class="far fa-star"></i>
+                                                                            <i class="far fa-star"></i>
+                                                                            <i class="far fa-star"></i>
+                                                                            <% } %>
+                                        </div>
+                                        <div class="price-wrapper">
+                                            <% if(user.cart[i].productId.isOnSale){ %>
+                                                <div class="pdt-original-price pdt-strike">Rs <%=
+                                                        user.cart[i].productId.price %> /-</div>
+                                                <div class="pdt-discounted-price">Rs <%=
+                                                        user.cart[i].productId.discountPrice %> /-</div>
+                                                <% }else{ %>
+                                                    <div class="pdt-original-price">Rs <%= user.cart[i].productId.price
+                                                            %>
+                                                            /-</div>
+                                                    <% } %>
+                                        </div>
+                                    </div>
+                                    <div class="item-description">
+                                        <%= user.cart[i].productId.description %>
+                                    </div>
+                                    <div class="quantity-details"><span>Quantity</span> - <%= user.cart[i].quantity %>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
+                    <div class="sc-order-now">
+                        <div class="sc-on-container">
+                            <div class="sc-on-order-summary">Order Summary</div>
+                            <div class="sc-on-pricing-details">
+                                <div class="sc-on-pd-list-parent">
+                                    <div class="sc-on-pd-items-list">
+                                        <% for (let i=0; i < user.cart.length; i++) { %>
+                                            <div class="sc-on-pd-item">
+                                                <div class="sc-on-pd-item-name">
+                                                    <%= user.cart[i].productId.productName %>
+                                                </div>
+                                                <div>Rs. <%= user.cart[i].productId.price %>
+                                                </div>
+                                            </div>
+                                            <% } %>
+                                    </div>
+                                    <hr class="sc-on-pd-hr">
+
+                                    <div class="sc-on-pd-total">
+                                        <h5>Quantity</h5>
+                                        <div>
+                                            <%= totalQuantity %>
+                                        </div>
+                                    </div>
+
+                                    <div class="sc-on-pd-total">
+                                        <h5>Sub Total</h5>
+                                        <div>Rs. <%= totalPrice %>
+                                        </div>
+                                    </div>
+
+                                    <div class="sc-on-pd-total">
+                                        <h5>Discounted price</h5>
+                                        <div>Rs. <%= totalDiscountedPrice %>
+                                        </div>
+                                    </div>
+
+                                    <div class="sc-on-pd-total">
+                                        <h5>Shipping Cost</h5>
+                                        <div>Rs. 0
+                                        </div>
+                                    </div>
+                                    <hr class="sc-on-pd-hr">
+                                    <div class="sc-on-pd-total">
+                                        <h5>Total</h5>
+                                        <div>Rs. <%= (onSale) ? (totalDiscountedPrice==totalPrice) ? 0:
+                                                totalDiscountedPrice:totalPrice %>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="sc-on-buy-now">Buy Now</div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <% }else{ %>
+                    <div class="no-item-msg">
+                        No items in the cart.
+                    </div>
+                    <% } %>
+        </div>
+
+        <!-- <div class="sc-recommended-products">
+            <h2 class="sc-recommendation-title">Recommended Products</h2>
+
+            <div class="sc-all-recommended-pdts">
+
+                <div class="sc-each-recommended-pdt">
+                    <div class="image-part">
+                        <img src="./photos/products/handiitems6.jpeg" alt="">
+                    </div>
+                    <div class="product-desc">
+                        <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
+                        <div class="product-pricing">
+                            <div class="pricing-sec">
+                                <p class="original-price">Rs. 7999</p>
+                                <p class="offer-price">Rs. 3999</p>
+                            </div>
+                            <div class="percentage-off">
+                                23% off
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sc-each-recommended-pdt">
+                    <div class="image-part">
+                        <img src="./photos/products/handiitems6.jpeg" alt="">
+                    </div>
+                    <div class="product-desc">
+                        <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
+                        <div class="product-pricing">
+                            <div class="pricing-sec">
+                                <p class="original-price">Rs. 7999</p>
+                                <p class="offer-price">Rs. 3999</p>
+                            </div>
+                            <div class="percentage-off">
+                                23% off
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sc-each-recommended-pdt">
+                    <div class="image-part">
+                        <img src="./photos/products/handiitems6.jpeg" alt="">
+                    </div>
+                    <div class="product-desc">
+                        <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
+                        <div class="product-pricing">
+                            <div class="pricing-sec">
+                                <p class="original-price">Rs. 7999</p>
+                                <p class="offer-price">Rs. 3999</p>
+                            </div>
+                            <div class="percentage-off">
+                                23% off
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div> -->
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="upper-footer">
+                <div>
+                    <h2>Address</h2>
+                    <div class="address-sec">
+                        <p>Lorem Ipsum</p>
+                        <p>Bhubaneswar, Odisha</p>
+                        <p>Pin - 751010</p>
+                        <p>Contact No. - 8910101010</p>
+                    </div>
+                </div>
+                <div class="social-media-sec">
+                    <h2>Follow Us At</h2>
+                    <div class="social-icons">
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-sec">
+                © Aviman 2021
+            </div>
+        </footer>
+
+        <i class="fas fa-chevron-up" id="backtotop"></i>
+        <script src="/js/navbar.js"></script>
+</body>
+
+</html>

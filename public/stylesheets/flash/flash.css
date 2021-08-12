@@ -1,0 +1,38 @@
+.flash-msg {
+    width: 100%;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    font-size: 1.1em;
+    /* border: 1px solid black; */
+    font-family: 'Montserrat';
+    letter-spacing: 0.02em;
+    font-weight: 300;
+    position: relative;
+    text-align: center;
+    z-index: 500;
+}
+
+.flash-msg .fas.fa-times {
+    position: absolute;
+    right: 5%;
+    cursor: pointer;
+}
+
+.flash-success {
+    background: #4bb543;
+}
+.flash-err {
+    background: #ff0909;
+}
+
+.flash-warning {
+    background: #f0ad4e;
+}
+
+.flash-info {
+    background: #0275d8;
+}

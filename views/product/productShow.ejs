@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Product</title>
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="/stylesheets/aboutUs.css">
+    <link rel="stylesheet" href="/stylesheets/categories.css">
+    <link rel="stylesheet" href="/stylesheets/newProducts.css">
+    <link rel="stylesheet" href="/stylesheets/singleProduct/singleProduct.css">
+    <link rel="stylesheet" href="/stylesheets/starability/star.css">
+    <link rel="stylesheet" href="/stylesheets/singleProduct/lightSlider.min.css">
+    <link rel="stylesheet" href="/stylesheets/flash/flash.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/lightSlider.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" />
+</head>
+
+<body>
+
+    <%- include('../partials/flashMsg') %>
+        <%- include('../partials/navbar') %>
+
+            <div id="single-product">
+                <div class="sp-container">
+                    <div class="sp-image-sec">
+                        <div class="sp-image-container">
+                            <img id="img-zoomed" class="sp-image" src="<%= product.productImages[0].url %>" alt="">
+                            <!-- <div id="img-result" class="img-zoom-result"></div> -->
+                        </div>
+
+                        <div class="sp-all-images">
+
+                            <% for(let imgs of product.productImages){ %>
+
+                                <img id="pdtimg<%=ctr%>" onclick="selectImage('<%=ctr%>')" src=<%=imgs.url%> alt="">
+                                <% ctr +=1 %>
+                                    <% } %>
+                                        <!-- <img id="pdtimg2" onclick="selectImage(2)" src="/photos/products/handiitems12.jpeg"
+                                    alt="">
+                                <img id="pdtimg3" onclick="selectImage(3)" src="/photos/products/handiitems3.jpeg"
+                                    alt="">
+                                <img id="pdtimg4" onclick="selectImage(4)" src="/photos/products/handiitems4.jpeg"
+                                    alt="">
+                                <img id="pdtimg5" onclick="selectImage(5)" src="/photos/products/handiitems10.jpeg"
+                                    alt=""> -->
+                        </div>
+
+                        <!-- <div class="sp-pdtname-pricing">
+                    <h5>Duis faucibus mauris eu pellentesque elementum</h5>
+                    <div class="sp-price-sec">
+                        <div class="sp-price-sec-left-half">
+                            <div class="sp-original-price">
+                                ₹ 4999
+                            </div>
+                            <div class="sp-discount-price">
+                                ₹ 1999
+                            </div>
+                        </div>
+                        <div class="sp-percentage-off">
+                            30% off
+                        </div>
+                    </div>
+
+                    <div class="sp-product-ratings">
+                        <div class="sp-product-ratings-left">
+                            <i class="fas fa-star checked"></i>
+                            <i class="fas fa-star checked"></i>
+                            <i class="fas fa-star checked"></i>
+                            <i class="fas fa-star checked"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="sp-product-ratings-right">
+                            4 Stars from a total of 30 Ratings
+                        </div>
+                    </div>
+
+                    <div class="sp-quantity">
+                        <div>
+                            <label for="productQuantity">Quantity</label>
+                            <input type="number" id="productQuantity" value="1" min="1" max="10">
+                        </div>
+                    </div>
+
+                    <div class="sp-pdt-buy-cart">
+                        <div class="sp-add-to-cart">Add To Cart <i class="fas fa-cart-plus"></i></div>
+                        <div class="sp-buy-now">Buy Now <i class="fas fa-shopping-bag"></i></div>
+                    </div>
+                </div> -->
+                    </div>
+                    <div class="sp-desc-sec">
+
+                        <div class="sp-desc-firsthalf">
+                            <div class="sp-desc-firsthalf-navbar">
+                                <li id="desc-navitem-1" class="sp-desc-firsthalf-navbar-li-active">Product</li>
+                                <li id="desc-navitem-2">Specification</li>
+                            </div>
+                            <div class="sp-pdt-desc">
+
+                                <div class="pdt-title">
+                                    <%= product.productName %>
+                                </div>
+
+                                <div class="pdt-price-and-discount">
+                                    <div class="pdt-pricing-sec">
+                                        <% if(product.isOnSale) { %>
+                                            <div class="pdt-original-price pdt-onsale">Rs. <%= product.price %>
+                                            </div>
+                                            <div class="pdt-duplicate-price">Rs. <%= product.discountPrice %>
+                                            </div>
+                                            <% }else{ %>
+                                                <div class="pdt-original-price">Rs. <%= product.price %>
+                                                </div>
+                                                <% } %>
+
+                                    </div>
+                                    <% if(product.isOnSale) { %>
+                                        <div class="pdt-discount-sec">
+                                            <%= percentageOff %>% off
+                                        </div>
+                                        <% } %>
+                                </div>
+                                <div style="padding: 0 1em;margin: 0.3em 0 0.5em;" class="free-shipping-msg"><i
+                                        class="fas fa-tag"></i> Free Shipping
+                                    Across India
+                                </div>
+
+
+
+                                <div class="pdt-rating-sec">
+                                    <div class="pdt-rating">
+                                        <% if(product.averageRating % 1 !=0) { %>
+                                            <% for(let i=0; i < Math.floor(product.averageRating); i++) { %>
+                                                <i class="fas fa-star"></i>
+                                                <% } %>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                    <% }else{ %>
+                                                        <% for(let i=0; i < product.averageRating; i++) { %>
+                                                            <i class="fas fa-star"></i>
+                                                            <% } %>
+                                                                <% } %>
+                                                                    <% if(product.averageRating==0) {%>
+                                                                        <i class="far fa-star"></i>
+                                                                        <i class="far fa-star"></i>
+                                                                        <i class="far fa-star"></i>
+                                                                        <i class="far fa-star"></i>
+                                                                        <i class="far fa-star"></i>
+                                                                        <% } %>
+                                    </div>
+                                    <div class="pdt-total-reviews">
+                                        <strong>
+                                            <%= product.averageRating %>
+                                        </strong> Rating( <%= product.totalReviews %> Reviews )
+                                    </div>
+                                </div>
+
+                                <!-- <div class="sp-quantity">
+                            <div>
+                                <label for="productQuantity">Quantity</label>
+                                <input type="number" id="productQuantity" value="1" min="1" max="10">
+                            </div>
+                        </div> -->
+
+                                <!-- <hr class="each-spec-hr"> -->
+
+                                <!-- <div class="sp-pdt-buy-cart">
+                            <div class="sp-add-to-cart">Add To Cart <i class="fas fa-cart-plus"></i></div>
+                            <div class="sp-buy-now">Buy Now <i class="fas fa-shopping-bag"></i></div>
+                        </div> -->
+
+
+
+                                <div class="pdt-desc">
+                                    <span>Product Description</span>
+                                    <%= product.description %>
+                                </div>
+
+                                <% if(currUser){ %>
+                                    <% if(product.quantity !=0){ %>
+                                        <div class="sp-pdt-buy-cart">
+                                            <form action="/addtocart/<%= currUser._id %>/<%= product._id %>"
+                                                method="POST" style="display: inline-block;">
+                                                <input type="number" class="quantity-input" value="1" name="quantity"
+                                                    min="1" max="<%= product.quantity %>" step="1">
+                                                <button class="sp-add-to-cart">Add To Cart <i
+                                                        class="fas fa-cart-plus"></i></button>
+                                            </form>
+                                            <!-- <button class="sp-buy-now">Buy Now <i class="fas fa-shopping-bag"></i></button> -->
+                                        </div>
+                                        <% }else{ %>
+                                            <div class="addtocart-warning">*Out Of Stock</div>
+                                            <% } %>
+
+                                                <% }else{ %>
+                                                    <div class="addtocart-warning">*Please login to be able to buy the
+                                                        product or
+                                                        add
+                                                        to
+                                                        cart.</div>
+                                                    <% } %>
+                            </div>
+
+                            <div class="sp-pdt-spec">
+                                <div class="each-specification">
+                                    <strong>(l x b x h)</strong> - <%= product.length %> x <%= product.breadth %> x <%=
+                                                product.height %> ( in cm )
+                                </div>
+
+                                <hr class="each-spec-hr">
+
+                                <div class="each-specification">
+                                    <strong>Color</strong> - <%= product.color %>
+                                </div>
+
+                                <hr class="each-spec-hr">
+
+                                <div class="each-specification">
+                                    <strong>Material</strong> - <%= product.material %>
+                                </div>
+
+                                <hr class="each-spec-hr">
+
+                                <div class="each-specification">
+                                    <strong>Weight</strong> - <%= product.weight %> grams
+                                </div>
+
+                                <hr class="each-spec-hr">
+
+                                <div class="each-specification">
+                                    <strong>Suitable For</strong> - <%= product.suitableFor %>
+                                </div>
+
+                                <hr class="each-spec-hr">
+
+                                <div class="each-specification">
+                                    <strong>Ideal For</strong> - <%= product.idealFor %>
+                                </div>
+
+                                <hr class="each-spec-hr">
+
+                                <div class="each-specification">
+                                    <div>
+                                        <strong>Care Instructions</strong> -
+                                        <ul>
+                                            <li>
+                                                <%= product.careInstructions%>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ratings Split Up and Add a Review Section -->
+                    <div class="rating-and-review">
+                        <div class="review-split-up-sec">
+                            <h3>All Ratings</h3>
+                            <div class="star-rating-and-out-of">
+                                <div class="star-rating">
+                                    <% if(product.averageRating % 1 !=0) { %>
+                                        <% for(let i=0; i < Math.floor(product.averageRating); i++) { %>
+                                            <i class="fas fa-star"></i>
+                                            <% } %>
+                                                <i class="fas fa-star-half-alt"></i>
+                                                <% }else{ %>
+                                                    <% for(let i=0; i < product.averageRating; i++) { %>
+                                                        <i class="fas fa-star"></i>
+                                                        <% } %>
+                                                            <% } %>
+                                                                <% if(product.averageRating==0) {%>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <% } %>
+                                </div>
+                                <div class="rating-out-of">
+                                    <%= product.averageRating %> out of 5
+                                </div>
+                            </div>
+                            <div class="rating-each-star-sec">
+                                <div class="each-star-rating">
+                                    <p>5 Star</p>
+                                    <progress value="<%= product.eachRating.fiveStar %>"
+                                        max="<%= product.totalReviews %>">
+                                        <%= (product.totalReviews !=0) ? ((product.eachRating.fiveStar /
+                                            product.totalReviews)*100).toFixed(0) : 0 %>%
+                                    </progress>
+                                    <p>
+                                        <%= (product.totalReviews !=0) ? ((product.eachRating.fiveStar /
+                                            product.totalReviews)*100).toFixed(0) : 0 %>%
+                                    </p>
+                                </div>
+                                <div class="each-star-rating">
+                                    <p>4 Star</p>
+                                    <progress value="<%= product.eachRating.fourStar %>"
+                                        max="<%= product.totalReviews %>">
+                                        <%= (product.totalReviews !=0) ? ((product.eachRating.fourStar /
+                                            product.totalReviews)*100).toFixed(0) : 0 %>%
+                                    </progress>
+                                    <p>
+                                        <%= (product.totalReviews !=0) ? ((product.eachRating.fourStar /
+                                            product.totalReviews)*100).toFixed(0) : 0 %>%
+                                    </p>
+                                </div>
+                                <div class="each-star-rating">
+                                    <p>3 Star</p>
+                                    <progress value="<%= product.eachRating.threeStar %>"
+                                        max="<%= product.totalReviews %>">
+                                        <%= (product.totalReviews !=0) ? ((product.eachRating.threeStar /
+                                            product.totalReviews)*100).toFixed(0) : 0 %>%
+                                    </progress>
+                                    <p>
+                                        <%= (product.totalReviews !=0) ? ((product.eachRating.threeStar /
+                                            product.totalReviews)*100).toFixed(0) : 0 %>%
+                                    </p>
+                                </div>
+                                <div class="each-star-rating">
+                                    <p>2 Star</p>
+                                    <progress value="<%= product.eachRating.twoStar %>"
+                                        max="<%= product.totalReviews %>">
+                                        <%= (product.totalReviews !=0) ? ((product.eachRating.twoStar /
+                                            product.totalReviews)*100).toFixed(0) : 0 %>%
+                                    </progress>
+                                    <p>
+                                        <%= (product.totalReviews !=0) ? ((product.eachRating.twoStar /
+                                            product.totalReviews)*100).toFixed(0) : 0 %>%
+                                    </p>
+                                </div>
+                                <div class="each-star-rating">
+                                    <p>1 Star</p>
+                                    <progress value="<%= product.eachRating.oneStar %>"
+                                        max="<%= product.totalReviews %>">
+                                        <%= (product.totalReviews !=0) ? ((product.eachRating.oneStar /
+                                            product.totalReviews)*100).toFixed(0) : 0 %>%
+                                    </progress>
+                                    <p>
+                                        <%= (product.totalReviews !=0) ? ((product.eachRating.oneStar /
+                                            product.totalReviews)*100).toFixed(0) : 0 %>%
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <% if(currUser){ %>
+                            <div class="add-a-review-sec">
+                                <div class="user-sec">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/768px-Circle-icons-profile.svg.png"
+                                        width="40" height="40" alt="">
+                                    <h2>Author Name <span class="verify-user">verified user</span></h2>
+                                </div>
+                                <form action="/products/<%= product._id %>/review" method="post">
+                                    <div class="provide-rating">
+                                        <fieldset class="starability-basic">
+                                            <input type="radio" id="no-rate" class="input-no-rate" name="rating"
+                                                value="1" checked aria-label="No rating." />
+                                            <input type="radio" id="first-rate1" name="rating" value="1" />
+                                            <label for="first-rate1" title="Terrible">1 star</label>
+                                            <input type="radio" id="first-rate2" name="rating" value="2" />
+                                            <label for="first-rate2" title="Not good">2 stars</label>
+                                            <input type="radio" id="first-rate3" name="rating" value="3" />
+                                            <label for="first-rate3" title="Average">3 stars</label>
+                                            <input type="radio" id="first-rate4" name="rating" value="4" />
+                                            <label for="first-rate4" title="Very good">4 stars</label>
+                                            <input type="radio" id="first-rate5" name="rating" value="5" />
+                                            <label for="first-rate5" title="Amazing">5 stars</label>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="review-comment-sec">
+                                        <label class="reviewCommentLabel" for="reviewComment">Review Comment</label>
+                                        <textarea name="reviewComment" id="reviewComment" cols="30" rows="3"></textarea>
+                                    </div>
+                                    <div class="review-submit-btn-sec">
+                                        <button>Add Review</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <% } %>
+                    </div>
+
+
+                    <!-- CUSTOMER REVIEWS -->
+                    <div class="customer-reviews">
+                        <h4>Customer's Reviews</h4>
+                        <% if(product.reviews.length> 0){ %>
+                            <div class="reviews">
+                                <% for(let review of product.reviews) {%>
+
+                                    <div class="each-review">
+                                        <div class="user-sec">
+                                            <img src="<%= (review.author.profileImage.url != "") ? review.author.profileImage.url : 'https://res.cloudinary.com/ankitcloudinary/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1627281063/samples/user-image_1_vegpkz.webp' %>"
+                                                width="40" height="40" alt="">
+                                            <h2>
+                                                <a href="/user/<%= review.author._id %>">
+                                                    <%= review.author.fullName %>
+                                                        <% if(review.author.verified=="verified" ){ %>
+                                                </a><span class="verify-user">verified user</span>
+                                                <% }else{ %>
+                                                    </a>
+                                                    <% } %>
+                                            </h2>
+                                        </div>
+                                        <div class="user-rating">
+                                            <% for(let i=0; i < review.rating; i++){ %>
+                                                <i class="fas fa-star"></i>
+                                                <% } %>
+                                        </div>
+                                        <div class="user-review-date">
+                                            review added on <strong>
+                                                <%= review.date.toDateString().substr(0, 15) %>
+                                            </strong>
+                                        </div>
+                                        <% if(review.text.length> 1){ %>
+                                            <div>
+                                                <span class="left-quote">
+                                                    <i class="fas fa-quote-left"></i>
+                                                </span>
+                                                <p class="user-comment">
+                                                    <%= review.text %>
+                                                </p>
+                                                <span class="right-quote">
+                                                    <i class="fas fa-quote-right"></i>
+                                                </span>
+                                            </div>
+                                            <% } %>
+                                                <% if(currUser && review.author.equals(currUser._id)){ %>
+                                                    <form
+                                                        action="/products/<%= product._id %>/review/<%= review._id %>?_method=DELETE"
+                                                        method="POST">
+                                                        <button class="review-delete-btn">Delete Review</button>
+                                                    </form>
+                                                    <% } %>
+                                    </div>
+
+                                    <hr class="each-review-hr">
+
+                                    <% } %>
+                            </div>
+                            <!-- <div class="pagination-wrapper">
+                                <div class="pagination">
+                                    <a href="#">&laquo;</a>
+                                    <a href="#">1</a>
+                                    <a href="#" class="active">2</a>
+                                    <a href="#">3</a>
+                                    <a href="#">4</a>
+                                    <a href="#">5</a>
+                                    <a href="#">6</a>
+                                    <a href="#">&raquo;</a>
+                                </div>
+                            </div> -->
+                            <% }else{ %>
+                                <div class="no-reviews-yet">
+                                    No Reviews Added Yet.
+                                </div>
+                                <% } %>
+
+                    </div>
+
+                    <!-- How its made -->
+                    <% if(product.productStory !="" ){ %>
+                        <div class="how-its-made">
+                            <h4>Product Story</h4>
+                            <div class="story">
+                                <span class="left-quote">
+                                    <i class="fas fa-quote-left"></i>
+                                </span>
+                                <p class="user-comment">
+                                    <%= product.productStory %>
+                                </p>
+                                <span class="right-quote">
+                                    <i class="fas fa-quote-right"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <% } %>
+
+
+                            <!-- RELATED PRODUCTS -->
+                            <div class="related-product-conatiner">
+                                <h2 class="related-products-heading">Related Products</h2>
+                                <ul id="product-slider" class="cs-hidden">
+
+                                    <% for(let i=0; i < relatedpdts.length; i++) { %>
+                                        <div class="item-<%= i+1 %> slide-item">
+                                            <a href="/products/<%= relatedpdts[i]._id %>">
+                                                <div class="item-image-part">
+                                                    <img src="<%= relatedpdts[i].productImages[0].url %>" alt="">
+                                                </div>
+                                                <div class="item-details">
+                                                    <h2>
+                                                        <%= relatedpdts[i].productName %>
+                                                    </h2>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <% } %>
+                                </ul>
+                            </div>
+
+                            <!-- FAQs -->
+                            <div class="product-faq">
+                                <h4>FAQ</h4>
+                                <div class="all-faqs">
+                                    <div class="each-faq">
+                                        <div class="faq-question-sec faq-1" onclick="showanswer(1)">
+                                            <h6 class="faq-question">Lorem ipsum dolor sit amet consectetur adipisicing
+                                                elit.
+                                                Fuga,
+                                                amet?</h6>
+                                            <i class="fas fa-chevron-down faq-show-more"></i>
+                                        </div>
+                                        <div class="faq-answer">
+                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero quae dolorum
+                                            assumenda?
+                                            Voluptatum placeat eveniet deleniti officia repellendus, ipsa omnis fugit
+                                            quia
+                                            libero in
+                                            obcaecati neque sunt ad optio! Ipsa aliquid deleniti consectetur modi animi
+                                            inventore
+                                            recusandae quo soluta provident, quibusdam, alias qui quis vitae unde
+                                            dignissimos
+                                            molestias
+                                            rem ex!
+                                        </div>
+                                    </div>
+
+                                    <hr class="each-faq-hr">
+                                    <div class="each-faq">
+                                        <div class="faq-question-sec faq-2" onclick="showanswer(2)">
+                                            <h6 class="faq-question">Lorem ipsum dolor sit amet consectetur adipisicing
+                                                elit.
+                                                Fuga,
+                                                amet?</h6>
+                                            <i class="fas fa-chevron-down faq-show-more"></i>
+                                        </div>
+                                        <div class="faq-answer">
+                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero quae dolorum
+                                            assumenda?
+                                            Voluptatum placeat eveniet deleniti officia repellendus, ipsa omnis fugit
+                                            quia
+                                            libero in
+                                            obcaecati neque sunt ad optio! Ipsa aliquid deleniti consectetur modi animi
+                                            inventore
+                                            recusandae quo soluta provident, quibusdam, alias qui quis vitae unde
+                                            dignissimos
+                                            molestias
+                                            rem ex!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <footer>
+                <div class="upper-footer">
+                    <div>
+                        <h2>Address</h2>
+                        <div class="address-sec">
+                            <p>Lorem Ipsum</p>
+                            <p>Bhubaneswar, Odisha</p>
+                            <p>Pin - 751010</p>
+                            <p>Contact No. - 8910101010</p>
+                        </div>
+                    </div>
+                    <div class="social-media-sec">
+                        <h2>Follow Us At</h2>
+                        <div class="social-icons">
+                            <i class="fab fa-twitter"></i>
+                            <i class="fab fa-facebook"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="copyright-sec">
+                    © Aviman 2021
+                </div>
+            </footer>
+
+            <!-- FLOATING CART SECTION -->
+            <%- include('../partials/floatingCart') %>
+
+                <i class="fas fa-chevron-up" id="backtotop"></i>
+                <script src="/js/flash.js"></script>
+                <script src="/js/navbar.js"></script>
+                <script src="/js/singleProduct.js"></script>
+</body>
+
+</html>

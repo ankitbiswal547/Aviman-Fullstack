@@ -1,0 +1,21 @@
+<% if(success !="" ){ %>
+    <div class="flash-msg flash-success msg-group">
+        <%= success %>
+            <i onclick="hideMsg()" class="fas fa-times"></i>
+    </div>
+    <% }else if(error !="" ){ %>
+        <div class="flash-msg flash-err msg-group">
+            <%= error %>
+                <i onclick="hideMsg()" class="fas fa-times"></i>
+        </div>
+        <% }else if(warning !="" ){ %>
+            <div class="flash-msg flash-warning msg-group">
+                <%= warning %>
+                    <i onclick="hideMsg()" class="fas fa-times"></i>
+            </div>
+            <% }else if(info !="" ){ %>
+                <div class="flash-msg flash-info msg-group">
+                    <%= info %>
+                        <i onclick="hideMsg()" class="fas fa-times"></i>
+                </div>
+                <% } %> %>
