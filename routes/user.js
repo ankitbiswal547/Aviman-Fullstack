@@ -210,6 +210,7 @@ router.get('/auth/verification/generatelink/:id', isLoggedIn, isUserPageOwner, c
         code: token,
     }
     const newSecretCode = await Secretcode.create(secretcode);
+    await newSecretCode.save();
     const response = await sendMail(user, newSecretCode, req, res);
 
     if (response.mailStatus === "failed") {
