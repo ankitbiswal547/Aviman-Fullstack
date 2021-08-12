@@ -1078,7 +1078,12 @@ progress::-webkit-progress-value {
     .sp-pdt-spec, .sp-pdt-desc {
         margin-top: 0;
     }
-    .pdt-title, .pdt-price-and-discount, .pdt-rating-sec, .pdt-desc {
+    .pdt-title, .pdt-rating-sec, .pdt-desc {
+        padding: 0 0.5em;
+        flex-direction: column;
+        align-items: baseline;
+    }
+    .pdt-price-and-discount {
         padding: 0 0.5em;
         flex-direction: row;
         align-items: baseline;
