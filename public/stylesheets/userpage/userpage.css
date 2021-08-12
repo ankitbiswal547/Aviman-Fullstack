@@ -941,7 +941,14 @@ label {
         font-size: 1.5em;
     }
 
+    .email-verification {
+        align-items: baseline;
+        flex-direction: column;
+    }
 
+    .email-verification a {
+        margin-top: 0.5em;
+    }
 }
 
 @media screen and (max-width:426px) {
