@@ -21,7 +21,7 @@ const express = require("express"),
     { isLoggedIn, isAdmin, isUserPageOwner, hasOrderedYet } = require("./middlewares"),
     nodemailer = require("nodemailer"),
     mongoSanitize = require('express-mongo-sanitize'),
-    MongoStore = require("connect-mongo")(session),
+    MongoStore = require('connect-mongo'),
     Razorpay = require("razorpay");
 
 
@@ -48,10 +48,12 @@ mongoose.connect(dbUrl, {
         // console.log(e);
     })
 
-const store = new MongoStore({
-    url: dbUrl,
-    secret: process.env.SESSION_SECRET,
-    touchAfter: 24 * 60 * 60
+const store = new MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: process.env.SESSION_SECRET
+    }
 })
 
 store.on("error", function (e) {
