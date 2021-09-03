@@ -24,13 +24,13 @@ if (billingForm) {
     const newstate = document.querySelector("#billing-state");
 
     billingForm.addEventListener("submit", (e) => {
-        // e.preventDefault();
+        e.preventDefault();
 
-        // let validity = checkNewAddressFormValidity();
+        let validity = checkNewAddressFormValidity();
 
-        // if (validity) {
-        billingForm.submit();
-        // }
+        if (validity) {
+            billingForm.submit();
+        }
     })
 
     const checkNewAddressFormValidity = () => {
