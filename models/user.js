@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Review = require('./review');
+const Product = require('./product');
 const { Schema } = mongoose;
 const passportLocalMongoose = require("passport-local-mongoose");
 
@@ -59,6 +60,42 @@ const userSchema = new Schema({
                 type: Number,
                 default: 1
             }
+        }
+    ],
+    order: {
+        orderId: {
+            type: String,
+            default: ""
+        },
+        amount: {
+            type: Number,
+            default: 0
+        },
+        orderAddress: {
+            type: Schema.Types.ObjectId,
+            ref: 'Address'
+        }
+    },
+    purchases: [
+        {
+            paymentId: {
+                type: String,
+                default: ""
+            },
+            amount: {
+                type: Number,
+                default: 0
+            },
+            status: {
+                type: String,
+                default: ""
+            }
+        }
+    ],
+    purchasedProducts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Product'
         }
     ]
 })

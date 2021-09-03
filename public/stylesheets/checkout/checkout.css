@@ -1,0 +1,322 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: white;
+    font-family: 'Montserrat', sans-serif;
+}
+h1 {
+    width: 60%;
+    margin: auto;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+    font-size: 2em;
+}
+
+.container-billing {
+    width: 80%;
+    margin: 2em auto 0;
+}
+
+label, input {
+    display: block;
+    width: 100%;
+}
+
+input {
+    padding: 0.7em;
+    border: 1px solid #e6e6e6;
+    margin-top: 0.5em;
+    font-size: 1em;
+    letter-spacing: 0.04em;
+    color: #2a2a2a;
+}
+
+input::placeholder {
+    letter-spacing: 0.1em;
+    font-size: 1em;
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid black;
+}
+
+/* label {
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    font-size: 1.2em;
+} */
+
+.shipping-address-sec {
+    margin-top: 1em;
+}
+
+.billing-address-heading, .shipping-address-heading {
+    width: 60%;
+    margin: 0 auto 1em;
+    color: #2a2a2a;
+    font-weight: 500;
+    font-size: 1.5em;
+    letter-spacing: 0.02em;
+}
+
+.billing-address-form, .shipping-address-form {
+    width: 60%;
+    margin: auto;
+    display: none;
+}
+.billing-address-form.not-hidden {
+    display: block;
+}
+
+.billing-address-form-control, .shipping-address-form-control {
+    margin-bottom: 1em;
+}
+
+.billing-address-form-control small {
+    color: red;
+    font-weight: 500;
+    display: block;
+    margin-top: 0.1em;
+}
+
+.check-same-address {
+    margin-bottom: 1em;
+}
+.check-same-address p{
+    font-weight: 500;
+}
+.check-same-address input {
+    width: auto;
+    margin-top: 0;
+    margin-right: 0.5em;
+}
+.check-same-address-option, .check-save-address-option{
+    display: flex;
+    align-items: center;
+    margin-top: 0.5em;
+}
+
+.check-same-address-option div, .check-save-address-option div {
+    display: flex;
+    align-items: center;
+    margin-right: 1em;
+}
+
+.checkout-page-btn {
+    padding: 0.5em;
+    font-size: 1em;
+    border: none;
+    background: #0d6efd;
+    color: white;
+    border-radius: 0.1em;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+}
+
+
+
+/* order summary */
+.order-summary {
+    width: 100%;
+    min-height: 400px;
+    background: #e6e6e6;
+    margin: 2em 0;
+    padding: 1.5em 2em;
+    border: 1px solid #e6e6e6;
+}
+
+.order-summary-heading {
+    width: 100%;
+    margin: 0 auto 1em;
+    color: #2a2a2a;
+    font-weight: 500;
+    font-size: 1.5em;
+    letter-spacing: 0.02em;
+}
+
+.each-row {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    background: white;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.each-row.sub-total-calc {
+    background: #e6e6e6;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    min-height: auto;
+    margin-bottom: 0.7em;
+    margin-top: 0.7em;
+}
+
+.each-row.shipping-calc {
+    background: #e6e6e6;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    min-height: auto;
+    margin-bottom: 0.7em;
+}
+
+.each-row.total-calc {
+    background: #e6e6e6;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border-top: 1px solid grey;
+}
+
+.each-row:nth-of-type(1) {
+    background-color: #e6e6e6;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.each-row div:nth-of-type(1) {
+    width: 60%;
+    padding: 0 1em;
+}
+
+.each-row div:nth-of-type(2) {
+    width: 15%;
+    text-align: center;
+}
+
+.each-row div:nth-of-type(3) {
+    width: 25%;
+    text-align: end;
+    padding: 0 1em;
+}
+
+.pay-now-sec {
+    margin: 0.5em auto 0;
+    display: grid;
+    place-items: center;
+}
+
+.single-address-wrapper, .all-addresses-wrapper {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.single-address {
+    width: 100%;
+    margin: 0 auto 2em;
+    padding: 1em;
+    background: #F8F8F8;
+    border: 0.5px solid #e6e6e6;
+    font-weight: 600;
+    font-size: 0.9em;
+    color: #696969;
+}
+
+.single-address div:nth-of-type(1) {
+    margin-bottom: 0.1em;
+    color: black;  
+    font-weight: bold;  
+}
+
+.single-add-addressline-one {
+    margin-top: 0.1em;
+}
+
+.single-add-addressline-two {
+    margin-bottom: 0.1em;
+}
+
+.single-address-btn-grp {
+    width: 100%;
+}
+
+.single-address-btn-grp button:nth-of-type(1){
+    padding: 0.5em;
+    font-size: 1em;
+    border: none;
+    background: #f7b949;
+    color: black;
+    border-radius: 0.1em;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+}
+.single-address-btn-grp form {
+    display: inline-block;
+}
+.single-address-btn-grp form .single-add-proceed-btn{
+    padding: 0.5em;
+    font-size: 1em;
+    border: none;
+    background: #0d6efd;
+    color: white;
+    border-radius: 0.1em;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    margin-left: 0.4em;
+}
+
+@media (max-width: 769px) {
+    .container-billing {
+        width: 90%;
+    }
+    h1{
+        width: 85%;
+    }
+
+    .billing-address-heading, .shipping-address-heading{
+        width: 85%;
+    }
+
+    .single-address-wrapper, .all-addresses-wrapper {
+        width: 85%;
+    }
+
+    .billing-address-form, .shipping-address-form {
+        width: 85%;
+    }
+}
+
+@media (max-width: 426px) {
+    .container-billing {
+        width: 90%;
+    }
+    h1{
+        width: 95%;
+    }
+
+    .billing-address-heading, .shipping-address-heading{
+        width: 95%;
+    }
+
+    .single-address-wrapper, .all-addresses-wrapper {
+        width: 95%;
+    }
+
+    .billing-address-form, .shipping-address-form {
+        width: 95%;
+    }
+    .order-summary-heading {
+        text-align: center;
+    }
+
+    .each-row div:nth-of-type(1) {
+        width: 50%;
+        padding: 0 0 0 0.5em;
+    }
+
+    .each-row div:nth-of-type(2){ 
+        width: 20%;
+    }
+
+    .each-row div:nth-of-type(3){
+        width: 30%;
+        padding: 0 0.5em 0 0;
+    }
+
+    .order-summary {
+        padding: 1.5em 0;
+    }
+}

@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background: #EDF9F3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.confirm-container {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.confirm-container h1 {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 3em;
+    color: #3ac47d;
+    text-align: center;
+}
+
+.fas.fa-check-circle {
+    font-size: 13em;
+    color: #3ac47d;
+    margin-top: 0.09em;
+    margin-bottom: 0.15em;
+}
+
+.text-confirmation{ 
+    color: #3ac47d;
+    font-weight: 400;
+    font-size: 1.3em;
+    text-align: center;
+}
+
+.button {
+    visibility: hidden;
+}
+
+.button-sec {
+    margin-top: 1.5em;
+}
+.button-sec a button {
+    padding: 0.5em;
+    font-size: 1em;
+    border: none;
+    background: #0d6efd;
+    color: white;
+    border-radius: 0.1em;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    margin-right: 0.3em;
+}
+/* .button-sec a:nth-of-type(2) button {
+    background: #0d6efd;
+    color: white;
+} */
+.button-sec a:nth-of-type(2) button {
+    background-color: #f7b924;
+    color: black;
+}
+.button-sec a:nth-of-type(3) button {
+    margin-right: 0;
+    background-color: #d92550;
+}
+
+@media (max-width: 769px) {
+    .confirm-container {
+        width: 75%;
+    }
+}
+
+@media (max-width: 769px) {
+    .confirm-container {
+        width: 90%;
+    }
+    .confirm-container h1 {
+        font-size: 2em;
+    }
+
+    .text-confirmation {
+        font-size: 1.15em;
+    }
+}
+
+@media (max-width: 426px) {
+    .confirm-container {
+        width: 90%;
+    }
+    .confirm-container h1 {
+        font-size: 2em;
+    }
+
+    .text-confirmation {
+        font-size: 1.15em;
+    }
+
+    .button-sec {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .button-sec button{
+        margin-right: 0;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+}

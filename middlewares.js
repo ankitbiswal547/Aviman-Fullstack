@@ -27,6 +27,15 @@ const isUserPageOwner = (req, res, next) => {
     res.redirect(`/user/${req.params.id}`);
 }
 
+const hasOrderedYet = (req, res, next) => {
+    if (req.user.order.orderId != "") {
+        return next();
+    }
+
+    req.flash("error", "No order has been initiated yet.");
+    res.redirect('/');
+}
+
 const deleteProfileImageBeforeUpdate = async (req, res, next) => {
 
     const user = await User.findById(req.user._id);
@@ -57,5 +66,6 @@ module.exports = {
     isLoggedIn,
     isAdmin,
     isUserPageOwner,
-    deleteProfileImageBeforeUpdate
+    deleteProfileImageBeforeUpdate,
+    hasOrderedYet
 }

@@ -18,12 +18,14 @@ const express = require("express"),
     session = require("express-session"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
-    { isLoggedIn, isAdmin } = require("./middlewares"),
+    { isLoggedIn, isAdmin, isUserPageOwner, hasOrderedYet } = require("./middlewares"),
     nodemailer = require("nodemailer"),
     mongoSanitize = require('express-mongo-sanitize'),
-    MongoStore = require("connect-mongo")(session);
+    MongoStore = require("connect-mongo")(session),
+    Razorpay = require("razorpay");
 
 
+const Address = require("./models/address");
 const userRoutes = require("./routes/user"),
     reviewRoutes = require("./routes/review"),
     productRoutes = require("./routes/product"),
@@ -100,6 +102,11 @@ app.use((req, res, next) => {
     res.locals.info = req.flash("info");
     res.locals.currUser = req.user;
     next();
+})
+
+const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET
 })
 
 
@@ -188,6 +195,250 @@ app.post('/contact', catchAsync(async (req, res) => {
 
 }))
 
+
+// razorpay starts
+
+app.get('/users/:id/createOrder', isLoggedIn, isUserPageOwner, catchAsync(async (req, res, next) => {
+    const user = await User.findById(req.params.id).populate({
+        path: 'cart',
+        populate: {
+            path: 'productId'
+        }
+    });
+
+    // console.log(user);
+    let totalPrice = 0;
+    let totalQuantity = 0;
+    let totalDiscountedPrice = 0;
+    let onSale = false;
+
+    let finalAmount = 0;
+
+    for (let i = 0; i < user.cart.length; i++) {
+        totalPrice += (user.cart[i].productId.price * user.cart[i].quantity);
+        totalQuantity += user.cart[i].quantity;
+        if (user.cart[i].productId.isOnSale) {
+            onSale = true;
+            totalDiscountedPrice += (user.cart[i].productId.discountPrice * user.cart[i].quantity);
+        }
+    }
+
+    totalDiscountedPrice = totalDiscountedPrice.toFixed(2);
+    if (totalDiscountedPrice == 0 && onSale) {
+        totalDiscountedPrice = totalPrice;
+    }
+
+
+    if (onSale) {
+        if (totalDiscountedPrice == totalPrice) {
+            finalAmount = 0;
+            // console.log(0);
+        } else {
+            finalAmount = totalDiscountedPrice;
+            // console.log(totalDiscountedPrice);
+        }
+    } else {
+        finalAmount = totalPrice;
+        // console.log(totalPrice);
+    }
+
+    finalAmount = finalAmount * 100;
+    // console.log(finalAmount);
+
+    let options = {
+        amount: finalAmount,
+        currency: "INR"
+    }
+
+    razorpay.orders.create(options)
+        .then(async (result) => {
+            // console.log(result);
+            user.order = {
+                orderId: result.id,
+                amount: result.amount
+            }
+            await user.save();
+            // console.log(user);
+            return res.redirect(`/users/${req.params.id}/checkout`);
+        })
+        .catch((err) => {
+            // console.log("err");
+            return next(err);
+            return res.send("error");
+        })
+
+
+}))
+
+app.get('/users/:id/checkout', isLoggedIn, isUserPageOwner, catchAsync(async (req, res, next) => {
+
+    const user = await User.findById(req.params.id).populate({
+        path: 'cart',
+        populate: {
+            path: 'productId'
+        }
+    }).populate({
+        path: 'addresses'
+    });
+
+    // console.log(user);
+    let totalPrice = 0;
+    let totalQuantity = 0;
+    let totalDiscountedPrice = 0;
+    let onSale = false;
+
+    let finalAmount = 0;
+
+    for (let i = 0; i < user.cart.length; i++) {
+        totalPrice += (user.cart[i].productId.price * user.cart[i].quantity);
+        totalQuantity += user.cart[i].quantity;
+        if (user.cart[i].productId.isOnSale) {
+            onSale = true;
+            totalDiscountedPrice += (user.cart[i].productId.discountPrice * user.cart[i].quantity);
+        }
+    }
+
+    totalDiscountedPrice = totalDiscountedPrice.toFixed(2);
+    if (totalDiscountedPrice == 0 && onSale) {
+        totalDiscountedPrice = totalPrice;
+    }
+
+
+    if (onSale) {
+        if (totalDiscountedPrice == totalPrice) {
+            finalAmount = 0;
+            // console.log(0);
+        } else {
+            finalAmount = totalDiscountedPrice;
+            // console.log(totalDiscountedPrice);
+        }
+    } else {
+        finalAmount = totalPrice;
+        // console.log(totalPrice);
+    }
+
+    finalAmount = finalAmount * 100;
+
+    if (!user.order.orderAddress) {
+        return res.render("user/checkout", { user, finalAmount, totalPrice, totalDiscountedPrice, totalQuantity, onSale, keyId: process.env.RAZORPAY_KEY_ID, addressAdded: false })
+    } else {
+        return res.render("user/checkout", { user, finalAmount, totalPrice, totalDiscountedPrice, totalQuantity, onSale, keyId: process.env.RAZORPAY_KEY_ID, addressAdded: true })
+    }
+}))
+
+app.get('/user/:id/orderconfirm', isLoggedIn, isUserPageOwner, (req, res, next) => {
+    res.render('user/orderconfirm');
+})
+
+app.post('/checkout', isLoggedIn, hasOrderedYet, catchAsync(async (req, res, next) => {
+
+    razorpay.payments.fetch(req.body.razorpay_payment_id).then(async (doc) => {
+        // console.log(doc);
+        // console.log(req.user);
+        const purchase = {
+            paymentId: doc.id,
+            amount: doc.amount,
+            status: doc.status
+        }
+        req.user.purchases.push(purchase);
+        for (let product of req.user.cart) {
+            const eachproduct = await Product.findById(product.productId);
+            eachproduct.salesCompleted += product.quantity;
+            await eachproduct.save();
+            req.user.purchasedProducts.push(product.productId);
+        }
+        req.user.cart = [];
+        req.user.order = {
+            orderId: "",
+            amount: 0,
+            orderAddress: null
+        }
+        await req.user.save();
+        // console.log(req.user);
+        // console.log(`/user/${req.user._id}/orderconfirm`);
+        return res.redirect(`/user/${req.user._id}/orderconfirm`);
+        // return res.send("successful");
+
+    })
+        .catch((Err) => {
+            // console.log(Err);
+            return res.send("error");
+        })
+
+    // res.send(req.razorpay_payment_id);
+    // res.send(req.razorpay_payment_id);
+}))
+
+app.post('/user/:id/saveaddress/:addId', isLoggedIn, isUserPageOwner, catchAsync(async (req, res, next) => {
+    const user = await User.findById(req.params.id).populate({
+        path: 'cart',
+        populate: {
+            path: 'productId'
+        }
+    }).populate({
+        path: 'addresses'
+    });
+
+    const address = await Address.findById(req.params.addId);
+
+    user.order.orderAddress = address._id;
+    await user.save();
+    // console.log(user);
+
+    return res.redirect(`/users/${req.params.id}/checkout`);
+
+}))
+
+app.post('/user/:id/addaddress', isLoggedIn, isUserPageOwner, catchAsync(async (req, res, next) => {
+    // console.log("Post request!!!");
+    const addressSchemaJoi = Joi.object({
+        country: Joi.string().required().escapeHTML(),
+        fullname: Joi.string().required().escapeHTML(),
+        mobileNumber: Joi.number().required().min(0),
+        pincode: Joi.number().required().min(0),
+        addressLineOne: Joi.string().required().escapeHTML(),
+        addressLineTwo: Joi.string().required().escapeHTML(),
+        city: Joi.string().required().escapeHTML(),
+        state: Joi.string().required().escapeHTML(),
+        addresstype: Joi.string().valid("Home", "Office").required().escapeHTML()
+    })
+
+    const { country = "India", fullname, mobileNumber, pincode, addressLineOne, addressLineTwo, landmark = "", city, state, addresstype = "Home" } = req.body;
+    const newAddress = {
+        country,
+        fullname,
+        mobileNumber,
+        pincode,
+        addressLineOne,
+        addressLineTwo,
+        city,
+        state,
+        addresstype
+    }
+
+
+    const { error } = addressSchemaJoi.validate(newAddress);
+
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',');
+        req.flash("error", msg);
+        return res.redirect("back");
+    }
+    newAddress.landmark = landmark;
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        return next(new ExpressError("User Not Found", 404));
+    }
+
+    const address = await Address.create(newAddress);
+    user.addresses.push(address);
+    user.order.orderAddress = address._id;
+    await user.save();
+    return res.redirect(`/users/${req.params.id}/checkout`);
+}))
+
+// razorpay ends
+
 app.use('/products', productRoutes);
 app.use('/', reviewRoutes);
 app.use('/', userRoutes);
@@ -209,5 +460,5 @@ app.use((err, req, res, next) => {
     res.render("errorTemplate", { err });
 })
 
-const port = process.env.PORT;
-app.listen(port || 3000, () => console.log(`Server started at ${port}!!`));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server started at ${port}!!`));

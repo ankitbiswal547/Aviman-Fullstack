@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="/stylesheets/checkout/checkout.css">
+    <link rel="stylesheet" href="/stylesheets/flash/flash.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+<body>
+    <%- include('../partials/flashMsg') %>
+        <div class="container-billing">
+            <% if(!addressAdded){ %>
+                <div class="billing-address">
+                    <div>
+                        <h1>STEP 1</h1>
+                        <h2 class="billing-address-heading">Billing/Shipping Address</h2>
+                        <div class="stored-addresses-section">
+                            <% if(user.addresses.length> 0){ %>
+                                <div class="single-address-wrapper">
+                                    <div class="single-address">
+                                        <div>
+                                            <%= user.addresses[0].fullname %>
+                                        </div>
+                                        <div>+91 <%= user.addresses[0].mobileNumber %>
+                                        </div>
+                                        <div>
+                                            <%= user.email %>
+                                        </div>
+                                        <div class="single-add-addressline-one">
+                                            <%= user.addresses[0].addressLineOne %>
+                                        </div>
+                                        <div class="single-add-addressline-two">
+                                            <%= user.addresses[0].addressLineTwo %>
+                                        </div>
+                                        <div>
+                                            <%= user.addresses[0].city %>(<%= user.addresses[0].pincode %>), <%=
+                                                        user.addresses[0].state %>
+                                        </div>
+                                        <div>
+                                            <%= user.addresses[0].country %>
+                                        </div>
+                                    </div>
+                                    <div class="single-address-btn-grp">
+                                        <button class="change-address-btn">Change Address</button>
+                                        <form action="/user/<%= user._id %>/saveaddress/<%= user.addresses[0]._id %>"
+                                            method="post">
+                                            <button class="single-add-proceed-btn">Proceed</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <% } %>
+                        </div>
+
+                        <% if(user.addresses.length==0){ %>
+                            <form action="/user/<%= user._id %>/addaddress" method="POST"
+                                class="billing-address-form not-hidden" autocomplete="off" spellcheck="false">
+
+                                <div class="billing-address-form-control">
+                                    <input id="billing-country" type="text" name="country" placeholder="Country"
+                                        value="India" disabled>
+                                </div>
+
+                                <div class="billing-address-form-control">
+                                    <input id="billing-fullname" type="text" name="fullname" placeholder="Full Name">
+                                    <small></small>
+                                </div>
+
+                                <div class="billing-address-form-control">
+                                    <input id="billing-number" type="text" name="mobileNumber"
+                                        placeholder="Phone Number">
+                                    <small></small>
+                                </div>
+
+                                <!-- <div class="billing-address-form-control">
+                                <input id="billing-email" type="email" name="email" placeholder="Email">
+                            </div> -->
+
+                                <div class="billing-address-form-control">
+                                    <input id="billing-addressLineOne" type="text" name="addressLineOne"
+                                        placeholder="Address Line 1">
+                                    <small></small>
+                                </div>
+
+                                <div class="billing-address-form-control">
+                                    <input id="billing-addressLineTwo" type="text" name="addressLineTwo"
+                                        placeholder="Address Line 1">
+                                    <small></small>
+                                </div>
+
+                                <div class="billing-address-form-control">
+                                    <input id="billing-city" type="text" name="city" placeholder="City">
+                                    <small></small>
+                                </div>
+
+                                <div class="billing-address-form-control">
+                                    <input id="billing-state" type="text" name="state" placeholder="State">
+                                    <small></small>
+                                </div>
+
+                                <div class="billing-address-form-control">
+                                    <input id="billing-pincode" type="text" name="pincode" placeholder="Pincode">
+                                    <small></small>
+                                </div>
+                                <!-- <div class="check-same-address">
+                                <p>Billing address same as shipping address?</p>
+                                <div class="check-same-address-option">
+                                    <div>
+                                        <input type="radio" name="sameAddress" id="sameAddressYes">
+                                        <label for="sameAddressYes">Yes</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="sameAddress" id="sameAddressNo">
+                                        <label for="sameAddressNo">No</label>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                                <button class="checkout-page-btn">Save and Proceed</button>
+                            </form>
+                            <% } %>
+
+                                <form action="/user/<%= user._id %>/addaddress" method="POST"
+                                    class="billing-address-form" autocomplete="off" spellcheck="false">
+
+                                    <div class="billing-address-form-control">
+                                        <input id="billing-country" type="text" name="country" placeholder="Country"
+                                            value="India" disabled>
+                                    </div>
+
+                                    <div class="billing-address-form-control">
+                                        <input id="billing-fullname" type="text" name="fullname"
+                                            placeholder="Full Name">
+                                        <small></small>
+                                    </div>
+
+                                    <div class="billing-address-form-control">
+                                        <input id="billing-number" type="text" name="mobileNumber"
+                                            placeholder="Phone Number">
+                                        <small></small>
+                                    </div>
+
+                                    <!-- <div class="billing-address-form-control">
+                            <input id="billing-email" type="email" name="email" placeholder="Email">
+                        </div> -->
+
+                                    <div class="billing-address-form-control">
+                                        <input id="billing-addressLineOne" type="text" name="addressLineOne"
+                                            placeholder="Address Line 1">
+                                        <small></small>
+                                    </div>
+
+                                    <div class="billing-address-form-control">
+                                        <input id="billing-addressLineTwo" type="text" name="addressLineTwo"
+                                            placeholder="Address Line 1">
+                                        <small></small>
+                                    </div>
+
+                                    <div class="billing-address-form-control">
+                                        <input id="billing-city" type="text" name="city" placeholder="City">
+                                        <small></small>
+                                    </div>
+
+                                    <div class="billing-address-form-control">
+                                        <input id="billing-state" type="text" name="state" placeholder="State">
+                                        <small></small>
+                                    </div>
+
+                                    <div class="billing-address-form-control">
+                                        <input id="billing-pincode" type="text" name="pincode" placeholder="Pincode">
+                                        <small></small>
+                                    </div>
+                                    <!-- <div class="check-same-address">
+                            <p>Billing address same as shipping address?</p>
+                            <div class="check-same-address-option">
+                                <div>
+                                    <input type="radio" name="sameAddress" id="sameAddressYes">
+                                    <label for="sameAddressYes">Yes</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="sameAddress" id="sameAddressNo">
+                                    <label for="sameAddressNo">No</label>
+                                </div>
+                            </div>
+                        </div> -->
+
+                                    <button class="checkout-page-btn">Save and Proceed</button>
+                                </form>
+                    </div>
+
+                    <!-- <div class="shipping-address-sec">
+                    <h1>STEP 2</h1>
+                    <h2 class="shipping-address-heading">Shipping Address</h2>
+                    <form action="" class="shipping-address-form" autocomplete="off" spellcheck="false">
+                        <div class="shipping-address-form-control">
+                            <input id="shipping-fullname" type="text" name="fullName" placeholder="Full Name">
+                        </div>
+    
+                        <div class="shipping-address-form-control">
+                            <input id="shipping-number" type="text" name="mobileNumber" placeholder="Phone Number">
+                        </div>
+    
+                        <div class="shipping-address-form-control">
+                            <input id="shipping-email" type="email" name="email" placeholder="Email">
+                        </div>
+    
+                        <div class="shipping-address-form-control">
+                            <input id="shipping-country" type="text" name="country" placeholder="Country">
+                        </div>
+    
+                        <div class="shipping-address-form-control">
+                            <input id="shipping-addressLineOne" type="text" name="addressLineOne"
+                                placeholder="Address Line 1">
+                        </div>
+    
+                        <div class="shipping-address-form-control">
+                            <input id="shipping-addressLineTwo" type="text" name="addressLineTwo"
+                                placeholder="Address Line 1">
+                        </div>
+    
+                        <div class="shipping-address-form-control">
+                            <input id="shipping-city" type="text" name="city" placeholder="City">
+                        </div>
+    
+                        <div class="shipping-address-form-control">
+                            <input id="shipping-state" type="text" name="state" placeholder="State">
+                        </div>
+    
+                        <div class="shipping-address-form-control">
+                            <input id="shipping-pincode" type="text" name="pincode" placeholder="Pincode">
+                        </div>
+                        <div class="check-same-address">
+                            <p>Wanna save this address too?</p>
+                            <div class="check-save-address-option">
+                                <div>
+                                    <input type="radio" name="saveAddress" id="saveAddressYes">
+                                    <label for="saveAddressYes">Yes</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="saveAddress" id="saveAddressNo">
+                                    <label for="saveAddressNo">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="checkout-page-btn">Save and Proceed</button>
+                    </form>
+                </div> -->
+                </div>
+                <% } %>
+
+
+                    <% if(addressAdded){ %>
+                        <h1>FINAL STEP</h1>
+                        <div class="order-summary">
+                            <h2 class="order-summary-heading">Order Summary</h2>
+                            <div class="product-classfication">
+                                <div class="each-row">
+                                    <div>Product</div>
+                                    <div>Quantity</div>
+                                    <div>Price</div>
+                                </div>
+
+                                <% for (let i=0; i < user.cart.length; i++) { %>
+                                    <div class="each-row">
+                                        <div>
+                                            <%= user.cart[i].productId.productName %>
+                                        </div>
+                                        <div>
+                                            x <%= user.cart[i].quantity %>
+                                        </div>
+                                        <div>Rs. <%= user.cart[i].productId.price %>
+                                        </div>
+                                    </div>
+                                    <% } %>
+
+                                        <div class="each-row sub-total-calc">
+                                            <div>Sub Total</div>
+                                            <div>x <%= totalQuantity %>
+                                            </div>
+                                            <div>Rs. <%= totalPrice %>
+                                            </div>
+                                        </div>
+
+                                        <div class="each-row shipping-calc">
+                                            <div>Discount</div>
+                                            <div></div>
+                                            <div>Rs. <%= totalDiscountedPrice %>
+                                            </div>
+                                        </div>
+
+                                        <div class="each-row shipping-calc">
+                                            <div>Shipping Charges</div>
+                                            <div></div>
+                                            <div>Rs. 0</div>
+                                        </div>
+
+                                        <div class="each-row total-calc">
+                                            <div>Total</div>
+                                            <div>x <%= totalQuantity %>
+                                            </div>
+                                            <div>Rs. <%= (onSale) ? (totalDiscountedPrice==totalPrice) ? 0:
+                                                    totalDiscountedPrice:totalPrice %>
+                                            </div>
+                                        </div>
+                            </div>
+
+                            <div class="pay-now-sec">
+                                <button class="checkout-page-btn" id="rzp-button1">Pay Now</button>
+                            </div>
+                        </div>
+                        <% } %>
+
+        </div>
+
+        <script src="/js/checkout.js"></script>
+        <script>
+            var options = {
+                "key": "<%= keyId %>", // Enter the Key ID generated from the Dashboard
+                "amount": "<%= (onSale) ? (totalDiscountedPrice==totalPrice) ? 0:totalDiscountedPrice:totalPrice %>", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "Aviman",
+                "description": "Test Transaction",
+                "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmW2A9yiPZsQiWV8jvy5n-L15Vl7p83cWslMMS5JLnoPP9WXbqt2mNxiN7q3o823sKl2g&usqp=CAU",
+                "order_id": "<%= user.order.orderId %>", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "callback_url": "/checkout",
+                "redirect": "true",
+                // "prefill": {
+                //     "name": "Ankit biswal",
+                //     "email": "ankit.kumar@example.com",
+                //     "contact": "9999999999"
+                // },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            let btn = document.getElementById('rzp-button1');
+            if (btn) {
+                btn.onclick = function (e) {
+                    console.log("clicked");
+                    rzp1.open();
+                    e.preventDefault();
+                }
+            }
+
+        </script>
+
+</body>
+
+</html>

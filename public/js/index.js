@@ -24,7 +24,7 @@ let sizeImg = 1519;
 
 // setInterval(() => {
 // }, 0);
-sizeImg = carouselImages[0].clientWidth;
+sizeImg = carouselSlide.clientWidth;
 
 carouselSlide.style.transform = `translateX(-${sizeImg * counter}px)`;
 

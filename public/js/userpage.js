@@ -75,7 +75,7 @@ function showUploadSectionPopup() {
 let userNavItems = document.querySelectorAll(".userpage-navigation-items");
 let usernavProfile = document.querySelector("#usernav-profile");
 let usernavAddress = document.querySelector("#usernav-adddress");
-let usernavHistory = document.querySelector("#usernav-history");
+// let usernavHistory = document.querySelector("#usernav-history");
 let usernavReviews = document.querySelector("#usernav-reviews");
 let userIntroSec = document.querySelector(".user-intro-sec");
 let addressSec = document.querySelector(".address-section");
@@ -108,11 +108,11 @@ function userActiveState() {
         addressSec.classList.remove("user-sec-visible");
     }
 
-    if (usernavHistory.classList.contains("usernav-active")) {
-        orderHistory.classList.add("user-sec-visible");
-    } else {
-        orderHistory.classList.remove("user-sec-visible");
-    }
+    // if (usernavHistory.classList.contains("usernav-active")) {
+    //     orderHistory.classList.add("user-sec-visible");
+    // } else {
+    //     orderHistory.classList.remove("user-sec-visible");
+    // }
 
     if (usernavReviews.classList.contains("usernav-active")) {
         reviewsHistory.classList.add("user-sec-visible");
