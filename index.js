@@ -34,7 +34,7 @@ const userRoutes = require("./routes/user"),
 // seed();
 const dbUrl = process.env.DB_URL;
 // "mongodb://localhost:27017/aviman"
-mongoose.connect(dbUrl, {
+mongoose.connect("mongodb://localhost:27017/aviman", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -49,7 +49,7 @@ mongoose.connect(dbUrl, {
     })
 
 const store = new MongoStore({
-    url: dbUrl,
+    url: "mongodb://localhost:27017/aviman",
     secret: process.env.SESSION_SECRET,
     touchAfter: 24 * 60 * 60
 })
@@ -112,11 +112,9 @@ const razorpay = new Razorpay({
 
 app.get('/', catchAsync(async (req, res, next) => {
     const products = await Product.find({}).limit(6);
-    // console.log(products.length);
     let percentageOff = (100 - Math.ceil((products[0].discountPrice / products[0].price) *
         100));
     const latestPdts = await Product.find({}).sort({ date: -1 }).limit(4);
-    // console.log(latestPdts);
     res.render("home", { products, latestPdts, percentageOff });
 }))
 app.get('/admin-dashboard', isLoggedIn, isAdmin, catchAsync(async (req, res) => {
@@ -135,7 +133,6 @@ app.get('/admin-dashboard', isLoggedIn, isAdmin, catchAsync(async (req, res) => 
 
     let totalUsers = await User.countDocuments();
 
-    // console.log(totalProducts, totalSales, totalUsers);
     res.render("adminDashboard", { products, edit: false, totalProducts, totalUsers, totalSales, onSale });
 }))
 
@@ -158,7 +155,6 @@ app.post('/contact', catchAsync(async (req, res) => {
     })
     if (error) {
         const msg = error.details.map(el => el.message).join(',');
-        // throw new ExpressError(msg, 400);
         req.flash("error", msg);
         return res.redirect("back");
     }
@@ -184,8 +180,6 @@ app.post('/contact', catchAsync(async (req, res) => {
             text: "Hello World!", // plain text body
             html: `<h1>Message from contact us form</h1><br><p>Message from <a href="mailto:${email}">${username}</a></p><p><b>${subject}</b></p><h2><b>${query}</b></h2>`, // html body
         });
-
-        // console.log("Message sent: %s", info.messageId);
     } catch (e) {
         req.flash("error", "Check your internet connectivity.");
         return res.redirect("back");
@@ -206,7 +200,6 @@ app.get('/users/:id/createOrder', isLoggedIn, isUserPageOwner, catchAsync(async 
         }
     });
 
-    // console.log(user);
     let totalPrice = 0;
     let totalQuantity = 0;
     let totalDiscountedPrice = 0;
@@ -232,18 +225,14 @@ app.get('/users/:id/createOrder', isLoggedIn, isUserPageOwner, catchAsync(async 
     if (onSale) {
         if (totalDiscountedPrice == totalPrice) {
             finalAmount = 0;
-            // console.log(0);
         } else {
             finalAmount = totalDiscountedPrice;
-            // console.log(totalDiscountedPrice);
         }
     } else {
         finalAmount = totalPrice;
-        // console.log(totalPrice);
     }
 
     finalAmount = finalAmount * 100;
-    // console.log(finalAmount);
 
     let options = {
         amount: finalAmount,
@@ -252,17 +241,14 @@ app.get('/users/:id/createOrder', isLoggedIn, isUserPageOwner, catchAsync(async 
 
     razorpay.orders.create(options)
         .then(async (result) => {
-            // console.log(result);
             user.order = {
                 orderId: result.id,
                 amount: result.amount
             }
             await user.save();
-            // console.log(user);
             return res.redirect(`/users/${req.params.id}/checkout`);
         })
         .catch((err) => {
-            // console.log("err");
             return next(err);
             return res.send("error");
         })
@@ -281,7 +267,6 @@ app.get('/users/:id/checkout', isLoggedIn, isUserPageOwner, catchAsync(async (re
         path: 'addresses'
     });
 
-    // console.log(user);
     let totalPrice = 0;
     let totalQuantity = 0;
     let totalDiscountedPrice = 0;
@@ -307,14 +292,11 @@ app.get('/users/:id/checkout', isLoggedIn, isUserPageOwner, catchAsync(async (re
     if (onSale) {
         if (totalDiscountedPrice == totalPrice) {
             finalAmount = 0;
-            // console.log(0);
         } else {
             finalAmount = totalDiscountedPrice;
-            // console.log(totalDiscountedPrice);
         }
     } else {
         finalAmount = totalPrice;
-        // console.log(totalPrice);
     }
 
     finalAmount = finalAmount * 100;
@@ -333,8 +315,6 @@ app.get('/user/:id/orderconfirm', isLoggedIn, isUserPageOwner, (req, res, next) 
 app.post('/checkout', isLoggedIn, hasOrderedYet, catchAsync(async (req, res, next) => {
 
     razorpay.payments.fetch(req.body.razorpay_payment_id).then(async (doc) => {
-        // console.log(doc);
-        // console.log(req.user);
         const purchase = {
             paymentId: doc.id,
             amount: doc.amount,
@@ -354,19 +334,12 @@ app.post('/checkout', isLoggedIn, hasOrderedYet, catchAsync(async (req, res, nex
             orderAddress: null
         }
         await req.user.save();
-        // console.log(req.user);
-        // console.log(`/user/${req.user._id}/orderconfirm`);
         return res.redirect(`/user/${req.user._id}/orderconfirm`);
-        // return res.send("successful");
 
     })
         .catch((Err) => {
-            // console.log(Err);
             return res.send("error");
         })
-
-    // res.send(req.razorpay_payment_id);
-    // res.send(req.razorpay_payment_id);
 }))
 
 app.post('/user/:id/saveaddress/:addId', isLoggedIn, isUserPageOwner, catchAsync(async (req, res, next) => {
@@ -451,13 +424,15 @@ app.use('*', (req, res) => {
 })
 
 app.use((err, req, res, next) => {
-    // console.log(err.name);
     if (err.name == "CastError") {
         err.message = "Not Found";
-        return res.render("errorTemplate", { err });
+        req.flash("error", "Not Found");
+        return res.redirect("/");
     }
     if (!err.message) err.message = "Oh No! Something went wrong."
-    res.render("errorTemplate", { err });
+    // res.render("errorTemplate", { err });
+    req.flash("error", "Error!!! This could be because of accessing something which you are not supposed to.");
+    res.redirect("/");
 })
 
 const port = process.env.PORT || 3000;

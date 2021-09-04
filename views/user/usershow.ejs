@@ -43,16 +43,6 @@
                                     src="<%= (user.profileImage.url == '') ? 'https://res.cloudinary.com/ankitcloudinary/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1627281063/samples/user-image_1_vegpkz.webp':user.profileImage.url %>"
                                     alt="">
 
-                                <!-- <div class="image-loader">
-                            <div class="gooey">
-                                <span class="dot"></span>
-                                <div class="dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                            </div>
-                        </div> -->
                                 <% if(currUser && user._id.equals(currUser._id)){ %>
                                     <button class="userpage-btn" onclick="showUploadSectionPopup()">Change Profile
                                         Image</button>
@@ -501,106 +491,6 @@
                                                     <% } %>
                                 </div>
 
-
-
-                                <!-- Order History -->
-                                <!-- <div class="order-history">
-                                    <h2 class="section-heading sec-head-3">Order History</h2>
-                                    <% if(currUser && user._id.equals(currUser._id)){ %>
-                                        <div class="order-history-wrapper">
-                                            <div class="each-order">
-                                                <div class="each-order-top">
-                                                    <img src="/photos/products/handiitems4.jpeg" width="60" height="60"
-                                                        alt="">
-                                                </div>
-                                                <div class="each-order-details">
-                                                    <h3 class="product-name">Lorem ipsum dolor sit.</h3>
-                                                    <p class="purchase-date">20 june 2019</p>
-                                                    <div class="purchase-confirmation">Purchased
-                                                        <svg id="check-mark" width="15" height="15"
-                                                            viewBox="0 0 100 100" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <g id="checked">
-                                                                <rect width="100" height="100" rx="50" fill="#4BB543" />
-                                                                <path id="tick"
-                                                                    d="M25.1067 49.6345L21.7674 52.8652C21.3853 53.2349 21.3593 53.8391 21.7083 54.2403L34.911 69.4149C35.2627 69.8192 35.8706 69.8743 36.2894 69.54L78.8733 35.5416C79.3014 35.1998 79.3748 34.5772 79.0379 34.1452L76.1719 30.4699C75.83 30.0315 75.1963 29.9561 74.7611 30.302L36.9374 60.3627C36.5158 60.6977 35.9047 60.6388 35.5549 60.2294L26.5623 49.7037C26.1878 49.2653 25.5211 49.2336 25.1067 49.6345Z"
-                                                                    fill="white" />
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div class="each-order-actions">
-                                                    <button class="order-receipt">Receipt</button>
-                                                    <button class="order-delete">Delete</button>
-                                                </div>
-                                            </div>
-
-                                            <div class="each-order">
-                                                <div class="each-order-top">
-                                                    <img src="/photos/products/handiitems4.jpeg" width="60" height="60"
-                                                        alt="">
-                                                </div>
-                                                <div class="each-order-details">
-                                                    <h3 class="product-name">Lorem ipsum dolor sit.</h3>
-                                                    <p class="purchase-date">20 june 2019</p>
-                                                    <div class="purchase-confirmation">Purchased
-                                                        <svg id="check-mark" width="15" height="15"
-                                                            viewBox="0 0 100 100" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <g id="checked">
-                                                                <rect width="100" height="100" rx="50" fill="#4BB543" />
-                                                                <path id="tick"
-                                                                    d="M25.1067 49.6345L21.7674 52.8652C21.3853 53.2349 21.3593 53.8391 21.7083 54.2403L34.911 69.4149C35.2627 69.8192 35.8706 69.8743 36.2894 69.54L78.8733 35.5416C79.3014 35.1998 79.3748 34.5772 79.0379 34.1452L76.1719 30.4699C75.83 30.0315 75.1963 29.9561 74.7611 30.302L36.9374 60.3627C36.5158 60.6977 35.9047 60.6388 35.5549 60.2294L26.5623 49.7037C26.1878 49.2653 25.5211 49.2336 25.1067 49.6345Z"
-                                                                    fill="white" />
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div class="each-order-actions">
-                                                    <button class="order-receipt">Receipt</button>
-                                                    <button class="order-delete">Delete</button>
-                                                </div>
-                                            </div>
-
-                                            <div class="each-order">
-                                                <div class="each-order-top">
-                                                    <img src="/photos/products/handiitems4.jpeg" width="60" height="60"
-                                                        alt="">
-                                                </div>
-                                                <div class="each-order-details">
-                                                    <h3 class="product-name">Lorem ipsum dolor sit amet consectetur..
-                                                    </h3>
-                                                    <p class="purchase-date">20 june 2019</p>
-                                                    <div class="purchase-confirmation">Purchased
-                                                        <svg id="check-mark" width="15" height="15"
-                                                            viewBox="0 0 100 100" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <g id="checked">
-                                                                <rect width="100" height="100" rx="50" fill="#4BB543" />
-                                                                <path id="tick"
-                                                                    d="M25.1067 49.6345L21.7674 52.8652C21.3853 53.2349 21.3593 53.8391 21.7083 54.2403L34.911 69.4149C35.2627 69.8192 35.8706 69.8743 36.2894 69.54L78.8733 35.5416C79.3014 35.1998 79.3748 34.5772 79.0379 34.1452L76.1719 30.4699C75.83 30.0315 75.1963 29.9561 74.7611 30.302L36.9374 60.3627C36.5158 60.6977 35.9047 60.6388 35.5549 60.2294L26.5623 49.7037C26.1878 49.2653 25.5211 49.2336 25.1067 49.6345Z"
-                                                                    fill="white" />
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div class="each-order-actions">
-                                                    <button class="order-receipt">Receipt</button>
-                                                    <button class="order-delete">Delete</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <% }else{ %>
-                                            <div class="privacy-policy">
-                                                <div>
-                                                    <i class="fas fa-info-circle"></i> Purchase History have been
-                                                    deliberately
-                                                    hidden for privacy concerns.
-                                                </div>
-                                            </div>
-                                            <% } %>
-                                </div> -->
-
                                 <div class="reviews-history">
                                     <h2 class="section-heading sec-head-4">Reviews</h2>
 
@@ -645,26 +535,6 @@
                                                         </div>
                                                     </div>
                                                     <% } %>
-
-
-
-                                                        <!-- <div class="userpage-each-review">
-                                <div class="userpage-review-detalis">
-                                    <div class="userpage-review-rating"><i class="fas fa-star"></i><i
-                                            class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                            class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                                    <div class="userpage-review-addedon">20 June 2020</div>
-                                    <div class="userpage-review-coment">Lorem ipsum dolor, sit amet consectetur
-                                        adipisicing
-                                        elit. Distinctio sequi vero ducimus
-                                        cum quo beatae suscipit iure praesentium incidunt molestias eos quam laudantium
-                                        quidem
-                                        maxime, ipsum iusto atque qui esse!</div>
-                                    <a class="userpage-visit-button">Visit Product</a>
-                                </div>
-                                <div class="userpage-review-delete"><a href="#"><i class="far fa-trash-alt"></i></a>
-                                </div>
-                            </div> -->
                                 </div>
                             </div>
                         </div>
@@ -698,17 +568,6 @@
             </div>
 
             <i class="fas fa-chevron-up" id="backtotop"></i>
-            <!-- <script type="text/javascript">
-                let proImage = document.querySelector(".userpage-userimage");
-
-                if (proImage.complete) {
-                    console.log("Loaded!!!");
-                } else {
-                    proImage.addEventListener("load", () => {
-                        console.log("loaded from onload eventlis..");
-                    })
-                }
-            </script> -->
             <script src="/js/navbar.js"></script>
             <script src="/js/userpage.js"></script>
             <script src="/js/flash.js"></script>
