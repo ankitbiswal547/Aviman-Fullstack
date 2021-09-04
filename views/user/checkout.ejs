@@ -325,7 +325,7 @@
 
         <script src="/js/checkout.js"></script>
         <script>
-            var options = {
+            var alloptions = {
                 "key": "<%= keyId %>", // Enter the Key ID generated from the Dashboard
                 "amount": "<%= (onSale) ? (totalDiscountedPrice==totalPrice) ? 0:totalDiscountedPrice:totalPrice %>", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                 "currency": "INR",
@@ -345,9 +345,24 @@
                 },
                 "theme": {
                     "color": "#3399cc"
+                },
+                config: {
+                    display: {
+                        hide: [
+                            {
+                                method: "netbanking"
+                            },
+                            {
+                                method: "wallet"
+                            },
+                            {
+                                method: "paylater"
+                            }
+                        ]
+                    }
                 }
             };
-            var rzp1 = new Razorpay(options);
+            var rzp1 = new Razorpay(alloptions);
             let btn = document.getElementById('rzp-button1');
             if (btn) {
                 btn.onclick = function (e) {
