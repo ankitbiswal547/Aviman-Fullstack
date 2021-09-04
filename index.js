@@ -34,7 +34,7 @@ const userRoutes = require("./routes/user"),
 // seed();
 const dbUrl = process.env.DB_URL;
 // "mongodb://localhost:27017/aviman"
-mongoose.connect("mongodb://localhost:27017/aviman", {
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -49,7 +49,7 @@ mongoose.connect("mongodb://localhost:27017/aviman", {
     })
 
 const store = new MongoStore({
-    url: "mongodb://localhost:27017/aviman",
+    url: dbUrl,
     secret: process.env.SESSION_SECRET,
     touchAfter: 24 * 60 * 60
 })
