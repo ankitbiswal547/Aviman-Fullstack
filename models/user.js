@@ -13,10 +13,6 @@ const userSchema = new Schema({
         type: String,
         required: [true, "Email is required."]
     },
-    // phoneNumber: {
-    //     type: Number,
-    //     required: [true, "Phone Number is required."]
-    // },
     fullName: {
         type: String,
         required: [true, "Full Name is required."]

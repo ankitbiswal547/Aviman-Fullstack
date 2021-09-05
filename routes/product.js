@@ -3,7 +3,6 @@ const router = express.Router();
 const Product = require("../models/product");
 const Review = require("../models/review");
 const User = require("../models/user");
-// const Joi = require("joi");
 const { Joi } = require("../utils/joiWrapper");
 const catchAsync = require("../utils/catchAsync");
 const ExpressError = require("../utils/ExpressError");
@@ -137,14 +136,20 @@ router.get('/:id', catchAsync(async (req, res, next) => {
             100));
     }
     const relatedpdts = await Product.find({}).limit(6);
-    res.render("product/productShow", { product, ctr: 1, relatedpdts, percentageOff });
+
+    let productPurchased = false;
+    if (req.user != undefined) {
+        for (let pdt in req.user.purchasedProducts) {
+            if (product._id.equals(req.user.purchasedProducts[pdt]._id)) {
+                productPurchased = true;
+                break;
+            }
+        }
+    }
+    res.render("product/productShow", { product, ctr: 1, relatedpdts, percentageOff, productPurchased });
 }))
 
 router.post('/', isLoggedIn, isAdmin, upload.array("productImages"), catchAsync(async (req, res, next) => {
-
-    // console.log(req.files);
-    // console.log(req.body);
-
     const productSchemaJoi = Joi.object({
         productName: Joi.string().required().escapeHTML(),
         productCode: Joi.string().required().escapeHTML(),
@@ -196,8 +201,6 @@ router.post('/', isLoggedIn, isAdmin, upload.array("productImages"), catchAsync(
     pdt.productImages = req.files.map(f => ({ url: f.path.replace(/(jpg|jpeg|png|webp)/g, "webp"), filename: f.filename }));
 
     await pdt.save();
-
-    // console.log(pdt);
     res.redirect('/admin-dashboard#allProducts');
 }))
 
@@ -211,15 +214,10 @@ router.get('/:id/edit', isLoggedIn, isAdmin, catchAsync(async (req, res, next) =
         req.flash("error", "Product Not found.");
         return res.redirect("/");
     }
-
-    // res.render("adminDashboard", { products: allProducts, editablepdt: product, edit: true });
     res.render("product/productEdit", { product });
 }))
 
 router.patch('/:id', isLoggedIn, isAdmin, upload.array("productImages"), catchAsync(async (req, res, next) => {
-
-    // console.log(req.body);
-
     const productSchemaJoi = Joi.object({
         productName: Joi.string().required().escapeHTML(),
         productCode: Joi.string().required().escapeHTML(),
@@ -240,7 +238,6 @@ router.patch('/:id', isLoggedIn, isAdmin, upload.array("productImages"), catchAs
         productStory: Joi.string().escapeHTML(),
     })
     const { productName, productCode, category, size, price, description, productImages, length, breadth, height, color, material, weight, quantity, suitableFor, idealFor, careInstructions, productStory } = req.body;
-    // console.log(productName)
     const newProduct = {
         productName,
         productCode,
@@ -278,7 +275,6 @@ router.patch('/:id', isLoggedIn, isAdmin, upload.array("productImages"), catchAs
             }
         } catch (e) {
             req.flash("error", "Check your internet connectivity.");
-            // console.log(e);
             return res.redirect("back");
         }
 
@@ -311,20 +307,13 @@ router.post('/fireSaleActivation', isLoggedIn, isAdmin, catchAsync(async (req, r
 }))
 
 router.post('/fireSaleDeactivation', isLoggedIn, isAdmin, catchAsync(async (req, res, next) => {
-    // const { salePercentage } = req.body;
-    // console.log(salePercentage);
-
     const products = await Product.find({});
-
-    // console.log(products);
     for (let product of products) {
         product.isOnSale = false;
         product.discountPrice = 0;
 
         await product.save();
     }
-
-    // console.log(products);
 
     res.redirect("/admin-dashboard#allProducts");
 }))

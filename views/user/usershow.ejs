@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>
+        <%= user.fullName %>
+    </title>
+    <link rel="icon"
+        href="https://res.cloudinary.com/www-aviman-com/image/upload/v1630854560/Aviman/assets/AVIMAN_2_ekquhz.png">
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="/stylesheets/userpage/userpage.css">
     <link rel="stylesheet" href="/stylesheets/flash/flash.css">
@@ -40,7 +44,7 @@
 
                             <div class="userpage-image-section">
                                 <img class="userpage-userimage"
-                                    src="<%= (user.profileImage.url == '') ? 'https://res.cloudinary.com/ankitcloudinary/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1627281063/samples/user-image_1_vegpkz.webp':user.profileImage.url %>"
+                                    src="<%= (user.profileImage.url == '') ? 'https://res.cloudinary.com/www-aviman-com/image/upload/v1630854614/Aviman/assets/user-image_2_qhrngk.webp':user.profileImage.url %>"
                                     alt="">
 
                                 <% if(currUser && user._id.equals(currUser._id)){ %>

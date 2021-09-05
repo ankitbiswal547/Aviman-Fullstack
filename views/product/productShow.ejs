@@ -4,7 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Single Product</title>
+    <title>
+        <%= product.productName %>
+    </title>
+    <link rel="icon"
+        href="https://res.cloudinary.com/www-aviman-com/image/upload/v1630854560/Aviman/assets/AVIMAN_2_ekquhz.png">
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="/stylesheets/aboutUs.css">
@@ -34,7 +38,6 @@
                     <div class="sp-image-sec">
                         <div class="sp-image-container">
                             <img id="img-zoomed" class="sp-image" src="<%= product.productImages[0].url %>" alt="">
-                            <!-- <div id="img-result" class="img-zoom-result"></div> -->
                         </div>
 
                         <div class="sp-all-images">
@@ -44,58 +47,9 @@
                                 <img id="pdtimg<%=ctr%>" onclick="selectImage('<%=ctr%>')" src=<%=imgs.url%> alt="">
                                 <% ctr +=1 %>
                                     <% } %>
-                                        <!-- <img id="pdtimg2" onclick="selectImage(2)" src="/photos/products/handiitems12.jpeg"
-                                    alt="">
-                                <img id="pdtimg3" onclick="selectImage(3)" src="/photos/products/handiitems3.jpeg"
-                                    alt="">
-                                <img id="pdtimg4" onclick="selectImage(4)" src="/photos/products/handiitems4.jpeg"
-                                    alt="">
-                                <img id="pdtimg5" onclick="selectImage(5)" src="/photos/products/handiitems10.jpeg"
-                                    alt=""> -->
-                        </div>
-
-                        <!-- <div class="sp-pdtname-pricing">
-                    <h5>Duis faucibus mauris eu pellentesque elementum</h5>
-                    <div class="sp-price-sec">
-                        <div class="sp-price-sec-left-half">
-                            <div class="sp-original-price">
-                                ₹ 4999
-                            </div>
-                            <div class="sp-discount-price">
-                                ₹ 1999
-                            </div>
-                        </div>
-                        <div class="sp-percentage-off">
-                            30% off
                         </div>
                     </div>
 
-                    <div class="sp-product-ratings">
-                        <div class="sp-product-ratings-left">
-                            <i class="fas fa-star checked"></i>
-                            <i class="fas fa-star checked"></i>
-                            <i class="fas fa-star checked"></i>
-                            <i class="fas fa-star checked"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="sp-product-ratings-right">
-                            4 Stars from a total of 30 Ratings
-                        </div>
-                    </div>
-
-                    <div class="sp-quantity">
-                        <div>
-                            <label for="productQuantity">Quantity</label>
-                            <input type="number" id="productQuantity" value="1" min="1" max="10">
-                        </div>
-                    </div>
-
-                    <div class="sp-pdt-buy-cart">
-                        <div class="sp-add-to-cart">Add To Cart <i class="fas fa-cart-plus"></i></div>
-                        <div class="sp-buy-now">Buy Now <i class="fas fa-shopping-bag"></i></div>
-                    </div>
-                </div> -->
-                    </div>
                     <div class="sp-desc-sec">
 
                         <div class="sp-desc-firsthalf">
@@ -162,22 +116,6 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class="sp-quantity">
-                            <div>
-                                <label for="productQuantity">Quantity</label>
-                                <input type="number" id="productQuantity" value="1" min="1" max="10">
-                            </div>
-                        </div> -->
-
-                                <!-- <hr class="each-spec-hr"> -->
-
-                                <!-- <div class="sp-pdt-buy-cart">
-                            <div class="sp-add-to-cart">Add To Cart <i class="fas fa-cart-plus"></i></div>
-                            <div class="sp-buy-now">Buy Now <i class="fas fa-shopping-bag"></i></div>
-                        </div> -->
-
-
-
                                 <div class="pdt-desc">
                                     <span>Product Description</span>
                                     <%= product.description %>
@@ -193,7 +131,6 @@
                                                 <button class="sp-add-to-cart">Add To Cart <i
                                                         class="fas fa-cart-plus"></i></button>
                                             </form>
-                                            <!-- <button class="sp-buy-now">Buy Now <i class="fas fa-shopping-bag"></i></button> -->
                                         </div>
                                         <% }else{ %>
                                             <div class="addtocart-warning">*Out Of Stock</div>
@@ -351,12 +288,17 @@
                                 </div>
                             </div>
                         </div>
-                        <% if(currUser){ %>
+                        <% if(currUser && productPurchased){ %>
                             <div class="add-a-review-sec">
                                 <div class="user-sec">
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/768px-Circle-icons-profile.svg.png"
                                         width="40" height="40" alt="">
-                                    <h2>Author Name <span class="verify-user">verified user</span></h2>
+                                    <h2>
+                                        <%= currUser.fullName %>
+                                            <% if(currUser.verified=="verified" ){ %>
+                                                <span class="verify-user">verified user</span>
+                                                <% } %>
+                                    </h2>
                                 </div>
                                 <form action="/products/<%= product._id %>/review" method="post">
                                     <div class="provide-rating">
@@ -446,18 +388,6 @@
 
                                     <% } %>
                             </div>
-                            <!-- <div class="pagination-wrapper">
-                                <div class="pagination">
-                                    <a href="#">&laquo;</a>
-                                    <a href="#">1</a>
-                                    <a href="#" class="active">2</a>
-                                    <a href="#">3</a>
-                                    <a href="#">4</a>
-                                    <a href="#">5</a>
-                                    <a href="#">6</a>
-                                    <a href="#">&raquo;</a>
-                                </div>
-                            </div> -->
                             <% }else{ %>
                                 <div class="no-reviews-yet">
                                     No Reviews Added Yet.
